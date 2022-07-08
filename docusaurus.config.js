@@ -84,23 +84,23 @@ const config = {
           {
             title: 'Community',
             items: [
-              {
+              /*{
                 label: 'Stack Overflow',
                 href: 'www.google.com',
               },
               {
                 label: 'Twitter',
                 href: 'www.google.com',
-              },
+              },*/
             ],
           },
           {
             title: 'More',
             items: [
-              {
+              /*{
                 label: 'GitHub',
                 href: 'www.google.com',
-              },
+              },*/
             ],
           },
         ],
