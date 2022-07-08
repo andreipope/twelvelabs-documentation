@@ -1,0 +1,81 @@
+swagger: "2.0"
+host: 35.82.130.225:8080 
+basePath: /v1
+accepts:
+  - application/json
+produces:
+  - application/json
+servers:
+  - url: http://35.82.130.225:8080 
+paths:
+  /engines:
+    get:
+      summary: List search engines
+      description: List all the search engines that are available in your account.
+      operationId: listEngines
+      tags:
+        - Engines 
+      parameters:
+        - name: x-api-key
+          in: header
+          description: >
+            Your API key.
+
+            **NOTE:** You can find your API key on the [Dashboard](https://api.twelvelabs.io/dashboard) page.   
+          required: true
+          type: string 
+        - name: Content-Type
+          in: header
+          description: Must be set to `application/json`.
+      responses:
+        '200':
+          description: The search engines have successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                type: Object 
+                properties:
+                  id:
+                  type: integer
+  /engines/{engine-id}:
+    get:
+      summary: Retrieve a search engine
+      operationId: retrieveSearchEngine
+      tags:
+        - Engines
+      parameters:
+        - name: x-api-key
+          in: header
+          description: >
+            Your API key.
+
+            **NOTE:** You can find your API key on the [Dashboard](https://api.twelvelabs.io/dashboard) page.
+          required: true
+          type: string
+        - name: Content-Type
+          in: header
+          description: Must be set to `application/json`.
+        - name: engine-id
+          in: path
+          description: The identifier of the engine to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The specified engine has successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Engine'                
+components:
+  responses:
+    Engine:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: an int
+        name:
+          type: string
+          description: a string
