@@ -43,6 +43,10 @@ const sidebars = {
       label: 'Guides',
       items: [
         {
+          type: 'doc',
+          id: 'guides/authentication'
+        },
+        {
           type: 'category',
           label: 'Uploading Videos',
           link: {
