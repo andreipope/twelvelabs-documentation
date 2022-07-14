@@ -44,17 +44,8 @@ paths:
       tags:
         - Engines
       parameters:
-        - name: x-api-key
-          in: header
-          description: >
-            Your API key.
-
-            **NOTE:** You can find your API key on the [Dashboard](https://api.twelvelabs.io/dashboard) page.
-          required: true
-          type: string
-        - name: Content-Type
-          in: header
-          description: Must be set to `application/json`.
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type' 
         - name: engine-id
           in: path
           description: The identifier of the engine to retrieve.
@@ -64,18 +55,42 @@ paths:
       responses:
         '200':
           description: The specified engine has successfully been retrieved.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/Engine'                
+  /indexes:
+    post:
+      summary: Create an index.
+      operationId: createIndex
+      tags:
+        - Indexes
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type' 
+        - name: engine-id
+          in: body
+          description: >
+            Specifies the search engine. The following options are available:
+              - `marengo2`
+              - `marengo`
+          required: true
+          schema:
+            type: string
+            example: marengo2
+      responses:
+        '200':
+          description: The specified engine has successfully been retrieved.
 components:
-  responses:
-    Engine:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: an int
-        name:
-          type: string
-          description: a string
+  parameters:
+    Content-Type:
+      name: Content-Type
+      in: header
+      description: Must be set to `application/json`.
+      type: string
+      required: true
+    x-api-key:
+      name: x-api-key
+      in: header
+      description: >
+        Your API key.
+
+        **NOTE:** You can find your API key on the [Dashboard](https://api.twelvelabs.io/dashboard) page.
+      type: string
+      required: true 

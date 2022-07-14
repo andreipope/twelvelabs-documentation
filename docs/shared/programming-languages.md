@@ -1,2 +1,1 @@
-This guide shows how to build an application that calls the Twelve Labs API using [Python](https://www.python.org/) and [Node.js](https://nodejs.org/en/). However, note that the API  is compatible with most programming languages.
-
+This guide shows how to build an application that calls the Twelve Labs API using [Python](https://www.python.org/) and [Node.js](https://nodejs.org/en/). However, note that the API  is compatible with most programming languages, and you can also use [Postman](https://www.postman.com/) or other REST clients to send requests and view responses.

@@ -6,6 +6,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
+  customFields: {
+    SPEC_URL: process.env.SPEC_URL,
+  },
   // themes: ['@saucelabs/theme-github-codeblock'],
   title: 'Twelve Labs API Documentation',
   tagline: 'The only video search that matters',

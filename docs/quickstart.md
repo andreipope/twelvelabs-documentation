@@ -13,31 +13,34 @@ import VideoRequirements from './shared/video-requirements.md'
 import Upload360pVideos from './shared/upload-360p-videos.md'
 import DeclareIndexesEndpoint from './shared/declare-indexes-endpoint.md'
 import DeclareTasksEndpoint from './shared/declare-tasks-endpoint.md'
+import MonitorIndexingProcess from './shared/monitor-indexing-process.md' 
+import TaskIdStatusCodeResponse from './shared/task-id-status-code-response.md'
 
 
 
 This guide demonstrates how to build a production-ready search service by using a three-step process:
-1. Create an index
-2. Upload a video
-3. Make a search request
+1. [Create an Index](#create-an-index)
+2. [Upload a Video](#upload-a-video)
+3. [Make a Search Request](#make-a-search-request)
 
 <!--TODO: Add links-->
 Note that each step is composed of a single API call.
 
+<ProgrammingLanguages />
+
 ## Prerequisites
 
-- A valid Twelve Labs account. To create an account, follow the instructions on the [Sign Up](https://api.twelvelabs.io/) page.
+- A valid Twelve Labs account. To create an account, go to the [Get Started](https://api.twelvelabs.io/) page, select **Sign Up**, and follow the instructions.
 - <Understand />
-- <ProgrammingLanguages />
 - <VideoRequirements />
 
 ## Recommendations
 
 - <Upload360pVideos /> 
 - To make calls to the API, you must include your secret key, and specify the URL of the API.
-Twelve Labs recommends you use environment variables to pass configuration to your application. To retrieve your API key, go to the [Dashboard](https://api.twelvelabs.io/dashboard) page and select the copy button:
+Twelve Labs recommends you use environment variables to pass configuration to your application. To retrieve your API key, go to the [Dashboard](https://api.twelvelabs.io/dashboard) page and select the copy button unde the **API Key** section:
   ![Dashboard - Select the Copy button](/img/dashboard-select-copy.png)
-  Then, enter the following commands, replacing the placeholder surrounded by `<>` with your value:
+  Then, enter the following commands, replacing the placeholder surrounded by `<>` with your API key:
   ```bash
   export API_KEY=<YOUR_API_KEY>
   export API_URL=https://api.twelvelabs.io/v1
@@ -46,16 +49,17 @@ Twelve Labs recommends you use environment variables to pass configuration to yo
 ## Create an Index
 
 1. In a new directory, install the required packages:
+
   <Tabs>
   <TabItem value="py" label="Python">
 
-  ```
+  ```bash
   python -m pip install requests pprint
   ```
   </TabItem>
   <TabItem value="js" label="Node.js">
 
-  ```
+  ```bash
   npm install axios form-data
   ```
   </TabItem>
@@ -120,7 +124,7 @@ Twelve Labs recommends you use environment variables to pass configuration to yo
 
 4. <DeclareIndexesEndpoint />
 
-5. Your API key is passed in the `headers` dictionary and the parameters are passed in the `data` dictionary:
+5. Your API key is passed in the `headers` dictionary and the parameters for creating a new index are passed in the `data` dictionary::
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -180,15 +184,14 @@ Twelve Labs recommends you use environment variables to pass configuration to yo
   ```
   </TabItem>
   </Tabs>
-
-7. Store the unique identifier of your index in a variable named `INDEX_ID` and print the status code and response:
+7. Store the ID of your index in a variable named `INDEX_ID` and print the status code and response:
 
   <Tabs>
   <TabItem value="py" label="Python">
 
   ```py 
-  INDEX_ID = response.json().get('_id')
-  print (f'Status code: {response.status_code}')
+  INDEX_ID = response.json().get("_id")
+  print (f"Status code: {response.status_code}")
   pprint (response.json())
   ```
   </TabItem>
@@ -196,7 +199,7 @@ Twelve Labs recommends you use environment variables to pass configuration to yo
 
   ```js
   const INDEX_ID = response._id
-  console.log(resp.status)
+  console.log(`Status code: ${resp.status}`)
   console.log(response)
   ```
   </TabItem>
@@ -206,8 +209,8 @@ Twelve Labs recommends you use environment variables to pass configuration to yo
   ```
   Status code: 200
   {'_id': '626a186f22c7851fcbe5c838',
-  'message': "Succesfully created index 'docs-testing' index",
-  'type': 'index_create'}
+   'message': "Succesfully created index 'docs-testing' index",
+   'type': 'index_create'}
   ```
   
 ## Upload a Video 
@@ -240,7 +243,7 @@ Once you've created an index, you can upload a video. When the video has finishe
   </TabItem>
   </Tabs>
 
-3. If you're using Python, store the index ID and the language of your video in a dictionary named data and the file to upload in an array named `file_param`. If you're using Node.js, store the index, the language of the video, and the file to upload, in a variable named `formData` of type `FormData`:
+3. If you're using Python, store the index ID and the language of your video in a dictionary named `data` and the file to upload in an array named `file_param`. If you're using Node.js, store the index, the language of the video, and the file to upload, in a variable named `formData` of type `FormData`:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -291,92 +294,33 @@ Once you've created an index, you can upload a video. When the video has finishe
   </TabItem>
   </Tabs>
 
-5. Store the ID of your task in a variable named `TASK_ID` and print the status code and response:
-
-  <Tabs>
-  <TabItem value="py" label="Python">
-
-  ```py 
-  TASK_ID = response.json().get('_id')
-  pprint (response.status_code)
-  pprint (response.json())
-   ```
-  
-  </TabItem>
-  <TabItem value="js" label="Node.js">
-
-  ```js
-  const TASK_ID = response._id
-  console.log(resp.status)
-  console.log(response)
-    ```
-  </TabItem>
-  </Tabs>
+5. <TaskIdStatusCodeResponse /> 
 
   The output should look similar to the following one:
   
   ```
+  Status code: 200
   {'_id': '626a229622c7851fcbe5c83b',
- 'message': 'Succesfully requested indexing task',
- 'type': 'index_task_create'}
+   'message': 'Succesfully requested indexing task',
+   'type': 'index_task_create'}
  ```
 
-6. _(Optional)_ You can use the `tasks/{_id}` <!--TODO: Add link --> endpoint to monitor the indexing process. Wait until the status shows as `ready`:
-
-  <Tabs>
-  <TabItem value="py" label="Python">
-
-  ```py 
-  INDEX_TASK_STATUS_URL = f"{API_URL}/indexes/tasks/{TASK_ID}"
-  while True:
-      response = requests.get(INDEX_TASK_STATUS_URL, headers=headers)
-      STATUS = response.json().get('status')
-      if STATUS == 'ready':
-          pprint (response.status_code)
-          pprint (response.json())
-          break
-      time.sleep(10)
-  ```
-  
-  </TabItem>
-  <TabItem value="js" label="Node.js">
-
-  ```js
-  const INDEX_TASK_STATUS_URL = `${API_URL}/indexes/tasks/${TASK_ID}`
-  config = {
-    method: 'get',
-    url: INDEX_TASK_STATUS_URL,
-    headers: headers,
-  }
-  let STATUS
-  do {
-    resp = await axios(config)
-    response = await resp.data
-    STATUS = response.status
-    if (STATUS !== 'ready')
-      await new Promise(r => setTimeout(r, 10000));
-  } while (STATUS !== 'ready')
-  console.log(STATUS)
-  console.log(response)
-  ```
-  </TabItem>
-  </Tabs>
-
+6. <MonitorIndexingProcess />
   The output should look similar to the following one:
   
-  ```
-  200
+  ``` {2,5}
+  Status code: 200
   {'_id': '626a3ddc22c7851fcbe5c844',
-  'created_at': '2022-04-28T07:10:20.453Z',
-  'estimated_time': '2022-04-28T07:22:08.885Z',
-  'index_id': '626a273122c7851fcbe5c842',
-  'metadata': {'duration': 552.92,
+   'created_at': '2022-04-28T07:10:20.453Z',
+   'estimated_time': '2022-04-28T07:22:08.885Z',
+   'index_id': '626a273122c7851fcbe5c842',
+   'metadata': {'duration': 552.92,
                 'filename': 'car-accidents.mp4',
                 'height': 720,
                 'width': 1280},
-  'status': 'ready',
-  'type': 'index_task_info',
-  'updated_at': '2022-04-28T07:22:09.16Z'}
+   'status': 'ready',
+   'type': 'index_task_info',
+   'updated_at': '2022-04-28T07:22:09.16Z'}
   ```
 
   :::info **NOTES**
@@ -429,7 +373,7 @@ When the API service has finished indexing the video, it can be searched by usin
 
   ```js
   data = JSON.stringify({
-      "query": "car accident",
+      "query": "car accidents",
       "index_id": INDEX_ID,
       "search_options": ["visual"],
       "operator": "and"
@@ -448,7 +392,7 @@ When the API service has finished indexing the video, it can be searched by usin
       - To perform a conversational-context search based on transcription:`["conversation"]`
       - To search for text that appears on the screen: ``["text_in_video"]`
       - To combine visual and conversation:`["visual", "conversation"]`.
-      To combine visual and conversation: `["visual", "conversation"`].
+      - To combine visual and conversation: `["visual", "conversation"`].
       
       When you combine multiple search options, you can use the operator parameter to broaden or narrow your search.  For details and examples, see the **Multiple Search Options** <!--TODO: Add link--> page.
 
@@ -483,7 +427,7 @@ When the API service has finished indexing the video, it can be searched by usin
   <TabItem value="py" label="Python">
 
   ```py 
-  pprint (response.status_code)
+  print (f"Status code: {response.status_code}")
   pprint (response.json())
   ```
   
@@ -491,7 +435,7 @@ When the API service has finished indexing the video, it can be searched by usin
   <TabItem value="js" label="Node.js">
 
   ```js
-  console.log(resp.status)
+  console.log(`Status code: ${resp.status}`)
   console.log(response)
   ```
   </TabItem>
@@ -500,77 +444,77 @@ When the API service has finished indexing the video, it can be searched by usin
   The output should look similar to the following one:
   
   ```
-  200
+  Status code: 200
   {'data': [{'confidence': 'high',
-            'end': 492,
-            'metadata': [{'type': 'visual'}],
-            'score': 88.86,
-            'start': 486,
-            'video_id': '62b3ed5cd01d61be020682ed'},
+             'end': 492,
+             'metadata': [{'type': 'visual'}],
+             'score': 88.86,
+             'start': 486,
+             'video_id': '62b3ed5cd01d61be020682ed'},
             {'confidence': 'mid',
-            'end': 216,
-            'metadata': [{'type': 'visual'}],
-            'score': 79.04,
-            'start': 210,
-            'video_id': '62b3ed5cd01d61be020682ed'},
+             'end': 216,
+             'metadata': [{'type': 'visual'}],
+             'score': 79.04,
+             'start': 210,
+             'video_id': '62b3ed5cd01d61be020682ed'},
             {'confidence': 'mid',
-            'end': 180,
-            'metadata': [{'type': 'visual'}],
-            'score': 78.54,
-            'start': 176,
-            'video_id': '62b3ed5cd01d61be020682ed'},
+             'end': 180,
+             'metadata': [{'type': 'visual'}],
+             'score': 78.54,
+             'start': 176,
+             'video_id': '62b3ed5cd01d61be020682ed'},
             {'confidence': 'mid',
-            'end': 382,
-            'metadata': [{'type': 'visual'}],
-            'score': 76.42,
-            'start': 376,
-            'video_id': '62b3ed5cd01d61be020682ed'},
+             'end': 382,
+             'metadata': [{'type': 'visual'}],
+             'score': 76.42,
+             'start': 376,
+             'video_id': '62b3ed5cd01d61be020682ed'},
             {'confidence': 'mid',
-            'end': 348,
-            'metadata': [{'type': 'visual'}],
-            'score': 76.27,
-            'start': 342,
-            'video_id': '62b3ed5cd01d61be020682ed'},
+             'end': 348,
+             'metadata': [{'type': 'visual'}],
+             'score': 76.27,
+             'start': 342,
+             'video_id': '62b3ed5cd01d61be020682ed'},
             {'confidence': 'mid',
-            'end': 504,
-            'metadata': [{'type': 'visual'}],
-            'score': 75.06,
-            'start': 498,
-            'video_id': '62b3ed5cd01d61be020682ed'},
+             'end': 504,
+             'metadata': [{'type': 'visual'}],
+             'score': 75.06,
+             'start': 498,
+             'video_id': '62b3ed5cd01d61be020682ed'},
             {'confidence': 'mid',
-            'end': 430,
-            'metadata': [{'type': 'visual'}],
-            'score': 74.91,
-            'start': 424,
-            'video_id': '62b3ed5cd01d61be020682ed'},
+             'end': 430,
+             'metadata': [{'type': 'visual'}],
+             'score': 74.91,
+             'start': 424,
+             'video_id': '62b3ed5cd01d61be020682ed'},
             {'confidence': 'mid',
-            'end': 188,
-            'metadata': [{'type': 'visual'}],
-            'score': 74.59,
-            'start': 182,
-            'video_id': '62b3ed5cd01d61be020682ed'},
+             'end': 188,
+             'metadata': [{'type': 'visual'}],
+             'score': 74.59,
+             'start': 182,
+             'video_id': '62b3ed5cd01d61be020682ed'},
             {'confidence': 'low',
-            'end': 176,
-            'metadata': [{'type': 'visual'}],
-            'score': 72.72,
-            'start': 174,
-            'video_id': '62b3ed5cd01d61be020682ed'},
+             'end': 176,
+             'metadata': [{'type': 'visual'}],
+             'score': 72.72,
+             'start': 174,
+             'video_id': '62b3ed5cd01d61be020682ed'},
             {'confidence': 'low',
-            'end': 218,
-            'metadata': [{'type': 'visual'}],
-            'score': 72.71,
-            'start': 216,
-            'video_id': '62b3ed5cd01d61be020682ed'}],
-  'page_info': {'limit_per_page': 10,
-                'next_page_id': 'ede1afc7-79c6-4df9-854a-1afe3535ef0d-1',
-                'page_expired_at': '2022-06-24T14:11:22Z',
-                'total_results': 24},
-  'query': 'car accidents',
-  'search_options': ['visual'],
-  'search_pool': {'index_id': '62b3ec6c5bf1be7a70989daf',
-                  'total_count': 2,
-                  'total_duration': 1363},
-  'type': 'search_create'} 
+             'end': 218,
+             'metadata': [{'type': 'visual'}],
+             'score': 72.71,
+             'start': 216,
+             'video_id': '62b3ed5cd01d61be020682ed'}],
+   'page_info': {'limit_per_page': 10,
+                 'next_page_id': 'ede1afc7-79c6-4df9-854a-1afe3535ef0d-1',
+                 'page_expired_at': '2022-06-24T14:11:22Z',
+                 'total_results': 24},
+   'query': 'car accidents',
+   'search_options': ['visual'],
+   'search_pool': {'index_id': '626a186f22c7851fcbe5c838',
+                   'total_count': 1,
+                   'total_duration': 1363},
+   'type': 'search_create'}
   ```
   For more examples, see the **Performing Searches** <!--TODO: Add link--> page.
 
