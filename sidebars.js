@@ -43,7 +43,7 @@ const sidebars = {
       label: 'Guides',
       items: [
         {
-          type: `category`,
+          type: 'category',
           label: 'Uploading Files',
           link: {
             type: 'doc',
@@ -62,7 +62,20 @@ const sidebars = {
               items: [
                 'guides/uploading-videos/cloud-to-cloud-transfers/set-up-an-integration',
                 'guides/uploading-videos/cloud-to-cloud-transfers/download-and-edit-the-list-of-videos',
-                'guides/uploading-videos/cloud-to-cloud-transfers/transfer-and-index-videos'
+                'guides/uploading-videos/cloud-to-cloud-transfers/transfer-and-index-videos',
+                {
+                  type: 'category',
+                  label: 'Manage Integrations',
+                  link: {
+                    type: 'doc',
+                    id: 'guides/uploading-videos/cloud-to-cloud-transfers/manage-integrations/overview'
+                  },
+                  items: [
+                    'guides/uploading-videos/cloud-to-cloud-transfers/manage-integrations/view-statistics',
+                    'guides/uploading-videos/cloud-to-cloud-transfers/manage-integrations/synchronize-data',
+                    'guides/uploading-videos/cloud-to-cloud-transfers/manage-integrations/remove-an-integration'
+                  ]
+                }
               ]
             }
           ]

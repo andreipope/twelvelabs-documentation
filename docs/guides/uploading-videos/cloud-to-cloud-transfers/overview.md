@@ -13,9 +13,9 @@ The steps for performing a cloud-to-cloud-transfer are as follows:
 
 The topics in this section provide instructions for managing integrations and making cloud-to-cloud transfers.
 
-1. Set Up an Integration
-2. Download and Edit the List of Videos
-3. Transfer and Index Videos
-4. Manage Integrations
+1. [Set Up an Integration](./set-up-an-integration.md)
+2. [Download and Edit the List of Videos](/guides/uploading-videos/cloud-to-cloud-transfers/download-and-edit-the-list-of-videos)
+3. [Transfer and Index Videos](/guides/uploading-videos/cloud-to-cloud-transfers/transfer-and-index-videos)
+4. [Manage Integrations](/guides/uploading-videos/cloud-to-cloud-transfers/manage-integrations)
 
 <!--TODO: Add links-->

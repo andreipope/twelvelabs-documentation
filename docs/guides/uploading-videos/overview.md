@@ -1,7 +1,6 @@
 ---
 title: Uploading Videos
 id: overview
-slug: /guides/uploading-videos
 ---
 
 Twelve Labs offers the following option for uploading videos:
@@ -11,5 +10,6 @@ Twelve Labs offers the following option for uploading videos:
 
 Depending on your use case, proceed to one of the following sections:
 
-- [Upload From the Local File System](./uploading-videos/upload-from-the-local-file-system)
-
+- [Upload From the Local File System](/guides/uploading-videos/upload-from-the-local-file-system)
+- [Upload From a URL](/guides/uploading-videos/upload-from-a-url)
+- [Cloud-to-Cloud Transfers](/guides/uploading-videos/cloud-to-cloud-transfers)

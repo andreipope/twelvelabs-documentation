@@ -71,7 +71,7 @@ An integration grants Twelve Labs access to read the files in your S3 bucket. Be
 7. On the **Roles** page, make sure that the system displays your new role:
   ![Make sure your role has been created](/img/make-sure-your-role-has-been-created.png)
 
-  ::: **NOTE**
+  :::info **NOTE**
   If the system does not display your role, review the steps in this section, making sure all the information you entered is correct.
   :::
 
@@ -88,6 +88,6 @@ An integration grants Twelve Labs access to read the files in your S3 bucket. Be
 3. On the **Connected Integrations** page, make sure that the status of your new integration shows as **Active**:
   ![Status shows as Active](/img/status-active.png)
 
-  ::: **NOTE**
+  :::info **NOTE**
   When the status of your integration shows as **Active**, it means that the API service can access the videos in your S3 bucket. If the status does not show as **Active**,  review the steps in this section, making sure all the information you entered is correct.
   :::
