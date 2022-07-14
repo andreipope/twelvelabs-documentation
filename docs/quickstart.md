@@ -16,12 +16,14 @@ import DeclareTasksEndpoint from './shared/declare-tasks-endpoint.md'
 import MonitorIndexingProcess from './shared/monitor-indexing-process.md' 
 import TaskIdStatusCodeResponse from './shared/task-id-status-code-response.md'
 
-
-
 This guide demonstrates how to build a production-ready search service by using a three-step process:
-1. [Create an Index](#create-an-index)
-2. [Upload a Video](#upload-a-video)
-3. [Make a Search Request](#make-a-search-request)
+- [Prerequisites](#prerequisites)
+- [Recommendations](#recommendations)
+- [Create an Index](#create-an-index)
+- [Upload a Video](#upload-a-video)
+- [Make a Search Request](#make-a-search-request)
+- [Source Code](#source-code)
+- [Related Topics](#related-topics)
 
 <!--TODO: Add links-->
 Note that each step is composed of a single API call.
