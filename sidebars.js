@@ -44,7 +44,7 @@ const sidebars = {
       items: [
         {
           type: 'category',
-          label: 'Uploading Files',
+          label: 'Uploading Videos',
           link: {
             type: 'doc',
             id: 'guides/uploading-videos/overview',
