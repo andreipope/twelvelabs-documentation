@@ -46,3 +46,6 @@ The API service checks for duplicate files using hashes and will not upload the 
   </TabItem>
   </Tabs>
 
+2. Read your JSON file. Open a stream making sure to replace the placeholders surrounded by `<>` with your values:
+
+

@@ -33,7 +33,7 @@ export default class MyCustomSwaggerWithPlugin extends React.Component {
   render() {
     return (
       <SwaggerUI
-        url={"http://localhost:3000/specs/engines.yaml"}
+        url={"https://raw.githubusercontent.com/andreipope/twelvelabs-documentation/main/static/specs/openapi.yaml"}
         plugins={[MySingleOperationPlugin]}
       />
     );
