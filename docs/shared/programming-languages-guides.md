@@ -1,0 +1,1 @@
+Note that, although the example code in this guide is written in [Python](https://www.python.org/) and [Node.js](https://nodejs.org/en/), the API  is compatible with most programming languages, and you can also use [Postman](https://www.postman.com/) or other REST clients to send requests and view responses.

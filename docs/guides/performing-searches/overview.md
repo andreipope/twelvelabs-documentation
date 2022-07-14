@@ -1,6 +1,7 @@
 ---
 title: Performing Searches
 id: overview
+slug: /guides/performing-searches
 ---
 
 This section provides examples demonstrating how to perform searches. The API allows you to perform the following type of searches by specifying the `search_options` parameter in the body of the request:
@@ -17,3 +18,5 @@ For details, proceed to one of the following pages:
 
 - Single Search Option
 - Multiple Search Options
+
+<!--TODO: Add links-->

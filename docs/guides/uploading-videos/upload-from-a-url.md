@@ -6,7 +6,7 @@ id: upload-from-a-url
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Understand from '../../shared/prerequisites-understand-page.md'
-import ProgrammingLanguages from '../../shared/programming-languages.md'
+import ProgrammingLanguages from '../../shared/programming-languages-guides.md'
 import VideoRequirements from '../../shared/video-requirements.md'
 import Upload360pVideos from '../../shared/upload-360p-videos.md'
 import DeclareIndexesEndpoint from '../../shared/declare-indexes-endpoint.md'

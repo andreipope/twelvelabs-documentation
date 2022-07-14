@@ -83,7 +83,19 @@ const sidebars = {
               ]
             }
           ]
-        }
+        },
+        {
+          type: 'category',
+          label: 'Performing Searches',
+          link: {
+            type: 'doc',
+            id: 'guides/performing-searches/overview'
+          },
+          items: [
+            'guides/performing-searches/single-search-option',
+            'guides/performing-searches/multiple-search-options'
+          ]
+        },
       ]
     },
     {
