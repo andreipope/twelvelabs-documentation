@@ -30,13 +30,6 @@ paths:
       responses:
         '200':
           description: The search engines have successfully been retrieved.
-          content:
-            application/json:
-              schema:
-                type: Object 
-                properties:
-                  id:
-                  type: integer
   /engines/{engine-id}:
     get:
       summary: Retrieve a search engine
@@ -70,13 +63,44 @@ paths:
             Specifies the search engine. The following options are available:
               - `marengo2`
               - `marengo`
+            
+            **NOTES**:
+              - Twelve Labs strongly recommends you use `marengo2`.
+              - You cannot change the engine once the index has been created.
           required: true
           schema:
             type: string
             example: marengo2
+        - name: index_options
+          in: body
+          description: >
+            Must be a subset of `[visual, conversation, text_in_video]`.
+          required: true
+          schema:
+            type: array
+            example: [visual, conversation, text_in_video]
+        - name: index_name
+          in: body
+          description: >
+            The name of the index. Make sure you use a succinct and descriptive name.
+          required: true
+          schema:
+            type: string
+            example: myIndex
       responses:
         '200':
-          description: The specified engine has successfully been retrieved.
+          description: An index has successfully been created.
+        '400':
+          description: The request has failed.
+    get:
+      summary: List indexes
+      description: Returns a list of the indexes in your account. The API returns indexes sorted by creation date, with the oldest indexes at the top of the list.
+      operationId: ListIndexes
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/page_limit'
 components:
   parameters:
     Content-Type:
@@ -93,4 +117,24 @@ components:
 
         **NOTE:** You can find your API key on the [Dashboard](https://api.twelvelabs.io/dashboard) page.
       type: string
-      required: true 
+      required: true
+    page:
+      name: page
+      in: query
+      description: >
+        A number that identifies the page to retrieve.
+            
+        **Default**: `1`.
+      type: Integer
+      required: false
+    page_limit:
+      name: page_limit
+      in: query
+      description: >
+        The number of items to return on each page.
+        
+        **Default**: `10`.
+        
+        **Max**: `100`.
+      type: Integer
+      required: false

@@ -96,16 +96,87 @@ const sidebars = {
             'guides/performing-searches/multiple-search-options'
           ]
         },
+        {
+          type: 'category',
+          label: 'Providing Your Custom Transcriptions',
+          link: {
+            type: 'doc',
+            id: 'guides/providing-your-custom-transcriptions/overview'
+          },
+          items: [
+            'guides/providing-your-custom-transcriptions/local-file-system',
+            'guides/providing-your-custom-transcriptions/urls',
+            'guides/providing-your-custom-transcriptions/cloud-to-cloud'
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Extracting Information from Videos',
+          link: {
+            type: 'doc',
+            id: 'guides/extracting-information-from-videos/overview'
+          },
+          items: [
+            'guides/extracting-information-from-videos/transcriptions',
+            'guides/extracting-information-from-videos/text-in-video'
+          ]
+        },
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Concepts',
+      items: [
+        'concepts/search-engines',
+        'concepts/indexing-options',
+        'concepts/search-options',
+        {
+          type: 'category',
+          label: 'Pagination',
+          link: {
+            type: 'doc',
+            id: 'concepts/pagination/overview'
+          },
+          items: [
+            'concepts/pagination/indexes',
+            'concepts/pagination/search'
+          ]
+        },
+        'concepts/sorting',
+        {
+          type: `category`,
+          label: 'Filtering',
+          link: {
+            type: 'doc',
+            id: 'concepts/filtering/overview'
+          },
+          items: [
+            'concepts/filtering/indexes',
+            'concepts/filtering/metadata'
+          ]
+        }
       ]
     },
     {
       type: 'category',
       label: 'API Reference',
+      link: {
+        type: 'doc',
+        id: 'api-reference/overview'
+      },
       items: [
         'api-reference/engines',
-        'api-reference/indexes'
+        'api-reference/indexes',
+        'api-reference/indexes-tasks',
+        'api-reference/indexes-tasks-transfers',
+        'api-reference/indexes-videos',
+        'api-reference/search',
+        'api-reference/error-codes'
       ]
     },
+    'faq',
+    'api-changelog',
+    'roadmap'
   ],
 };
 
