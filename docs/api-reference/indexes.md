@@ -26,14 +26,75 @@ An index groups one or more videos stored as vectors and is the most granular le
 ### Response Schema
 
 The response is in JSON format. 
-- On success, it contains the following fields:
-  - `_id`: Represents the unique identifier of the `index` object.
-  - `message`:  A human-readable string describing the result.
-  - `type`: Describes the type of operation (`index_create`).
-- On failure, it contains the following fields:
-  - `error_code`: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
-  - `message`: A human-readable string describing the error.
+On success, it contains the following fields:
+- `_id`: Represents the unique identifier of the `index` object.
+- `message`:  A human-readable string describing the result.
+- `type`: Describes the type of operation (`index_create`).
+On failure, it contains the following fields:
+- `error_code`: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
+- `message`: A human-readable string describing the error.
 
 ## List Indexes
 
 <DisplayMethod path="/indexes" method="get"/>
+
+### Response Schema
+
+The response is in JSON format. 
+
+On success, it contains the following fields:
+- `data`: An array that contains up to `page_limit` indexes.
+- `page_info`: An object that provides information about pagination. It has the following fields:
+  - `limit_per_page`: The maximum number of items on each page.
+  - `page`: The page you retrieved.
+  - `total_page`: The total number of pages.
+  - `total_results`: The total number of results. 
+  - `type`: Describes the type of operation (`index_list`). 
+On failure, it contains the following fields:
+- `error_code`: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
+- `message`: A human-readable string describing the error.
+
+## Retrieve an Index
+
+<DisplayMethod path="/indexes/{index-id}" method="get"/>
+
+### Response Schema
+
+The response is in JSON format. 
+
+On success, it contains the following fields:
+- `data`: An object that contains an index object.
+- `type`: Describes the type of operation (`get_index`).
+On failure, it contains the following fields:
+- `error_code`: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
+- `message`: A human-readable string describing the error.
+
+## Update an index
+
+<DisplayMethod path="/indexes/{index-id}" method="put"/>
+
+### Response Schema
+
+The response is in JSON format.
+
+On success, it contains the following fields:
+- `message`: A human-readable string describing the result.
+- `type`: Describes the type of operation (`update_index`).
+On failure, it contains the following fields:
+- `error_code`: The code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
+- `message`: A human-readable string describing the error.
+
+## Delete an Index
+
+<DisplayMethod path="/indexes/{index-id}" method="delete"/>
+
+### Response Schema
+
+The response is in JSON format.
+
+On success, it contains the following fields:
+- `message`: A human-readable string describing the result.
+- `type`: Describes the type of operation (`index_delete`).
+On failure, it contains the following fields:
+- `error_code`: The code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
+- `message`: A human-readable string describing the error.

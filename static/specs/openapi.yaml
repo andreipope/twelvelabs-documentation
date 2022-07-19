@@ -1,4 +1,4 @@
-swagger: "2.0"
+openapi: 3.0.0
 host: 35.82.130.225:8080 
 basePath: /v1
 accepts:
@@ -43,8 +43,7 @@ paths:
           in: path
           description: The identifier of the engine to retrieve.
           required: true
-          schema:
-            type: string
+          type: string
       responses:
         '200':
           description: The specified engine has successfully been retrieved.
@@ -68,25 +67,21 @@ paths:
               - Twelve Labs strongly recommends you use `marengo2`.
               - You cannot change the engine once the index has been created.
           required: true
-          schema:
-            type: string
-            example: marengo2
+          xtype: string
         - name: index_options
           in: body
           description: >
             Must be a subset of `[visual, conversation, text_in_video]`.
           required: true
-          schema:
-            type: array
-            example: [visual, conversation, text_in_video]
+          type: array
+          example: [visual, conversation, text_in_video]
         - name: index_name
           in: body
           description: >
             The name of the index. Make sure you use a succinct and descriptive name.
           required: true
-          schema:
-            type: string
-            example: myIndex
+          type: string
+          example: myIndex
       responses:
         '200':
           description: An index has successfully been created.
@@ -101,6 +96,346 @@ paths:
         - $ref: '#/components/parameters/Content-Type'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/page_limit'
+        - $ref: '#/components/parameters/sort_by'
+        - $ref: '#/components/parameters/sort_option'
+        - name: _id
+          in: query
+          description: Filter by the unique identifier of an index.
+          required: false
+          type: string
+        - name: index_name
+          in: query
+          description: Filter by the name of the index.
+          required: false
+          type: string
+        - name: index_options
+          in: query
+          description: >
+            Filter by the indexing options. When filtering multiple indexing options, the values must be comma-separated.
+            
+            Example: `index_options=visual,conversation`.
+          required: false
+          type: List
+      responses:
+        '200':
+          description: The indexes have successfully been retrieved.
+        '400':
+          description: The request has failed.
+  /indexes/{index-id}:
+    get:
+      summary: Retrieve an index object.
+      operationId: retrieveIndex
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: index-id
+          in: path
+          description: >
+            Unique identifier of the index to retrieve.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The specified index has successfully been retrieved.
+        '400':
+          description: The request has failed.
+    put:
+      summary: Update an index
+      operaitonId: updateIndex
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: index_name
+          in: body
+          description: >
+            The name of the index.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The specified index has successfully been updated.
+        '400':
+          description: The request has failed.
+    delete:
+      summary: Delete an index
+      description: Delete the specified index and all the video indexes within it. This action cannot be undone.
+      operationId: deleteIndex
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: index-id
+          in: path
+          description: >
+            Unique identifier of the index to delete.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The specified index has successfully been deleted.
+        '400':
+          description: The request has failed.
+  /indexes/tasks:
+    post:
+      summary: Create a video indexing task.
+      operationId: createVideoIndexingTask
+      requestBody:
+        content: 
+          multipart/form-data: # Media type
+            schema:            # Request payload
+              type: object
+              properties:      # Request parts
+                index_id:            
+                  type: string
+                  description: >
+                     The unique identifier of the index to which the video is being uploaded.
+                  required: true
+                video_file:
+                  type: string
+                  format: application/octet-stream
+                  description: >
+                    Specify this parameter to upload a video from your local file system.
+                  required: false
+                video_url:
+                  type: string
+                  description: >
+                    Specify this parameter to upload a video from a publicly accessible URL.
+                  required: false
+                provide_transcription:
+                  type: Boolean
+                  description: >
+                    A boolean value specifying whether or not you provide a transcription for this video.
+                  required: false
+                transcription_file:
+                  type: string
+                  format: application/octet-stream
+                  description: >
+                    When the provide_transcription parameter is set to `true`, and you want to provide a transcription from the local file system, use the `transcription_file` parameter to pass your transcription file to the API service.
+                    It must be a stream of bytes encoded as `multipart/form-data`.
+                    The transcription must be in the SRT or VTT format.
+                  required: false
+                transcription_url:
+                  type: string
+                  description: >
+                    When the `provide_transcription` parameter is set to `true`, and you want to provide a transcription from a publicly accessible URL, use the `transcription_url` parameter to specify the URL of your transcription.
+                    The transcription must be in the SRT or VTT format.
+                  required: false
+                language:
+                  type: string
+                  description: Must be set to `en`.
+                  required: false
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+      responses:
+        '200':
+          description: A video indexing task has successfully been created.
+        '400':
+          description: The request has failed.
+    get:
+      summary: List video indexing tasks.
+      description: >
+        Returns a list of the video indexing tasks in your account.
+        The API returns your video indexing tasks sorted by creation date, with the newest at the top of the list.
+      operationId: createVideoIndexingTask
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/page_limit'
+        - $ref: '#/components/parameters/sort_by'
+        - $ref: '#/components/parameters/sort_option'
+        - name: _id
+          in: query
+          description: >
+            Filter by the unique identifier of a video indexing task. 
+          required: false
+          type: string
+        - name: index_id
+          in: query
+          description: >
+            Filter by the unique identifier of an index.
+          required: false
+          type: string
+        - name: filename
+          in: query
+          description: >
+            Filter by filename.
+          required: false
+          type: string
+        - name: duration
+          in: query
+          description: >
+            Filter by duration. Expressed in seconds.
+          required: false
+          type: Integer
+        - name: width
+          in: query
+          description: >
+            Filter by width.
+          required: false
+          type: Integer
+        - name: height
+          in: query
+          description: >
+            Filter by height.
+          required: false
+          type: Integer
+        - name: created_at
+          in: query
+          description: >
+            Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task was created.
+          required: false
+          type: string
+        - name: updated_at
+          in: query
+          description: >
+            Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task was updated.
+          required: false
+          type: string
+        - name: estimated_time
+          in: query
+          description: >
+            Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task is ready to be searched.
+      responses:
+        '200':
+          description: The video indexing tasks have successfully been retrieved.
+        '400':
+          description: The request has failed.
+  /indexes/tasks/{task-id}:
+    get:
+      summary: Retrieve a video indexing task.
+      operationId: retrieveVideoIndexingTask
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: task-id
+          in: path
+          description: >
+            The unique identifier of the video indexing task to retrieve.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The specified video indexing task has successfully been retrieved.
+        '400':
+          description: The request has failed.
+  /indexes/tasks/{task-id}/video-id:
+    get:
+      summary: Retrieve the video ID associated with a task ID
+      description: Provide the ID of a video indexing task, and the API service will return the corresponding video ID.
+      operationId: retrieveVideoIdTaskId
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: task-id
+          in: path
+          description: >
+            A task ID that the API returned when you created a video indexing task.
+      responses:
+        '200':
+          description: The corresponding video ID has successfully been retrieved.
+        '400':
+          description: The request has failed.
+  /indexes/tasks/transfers:
+    summary: Make a cloud-to-cloud transfer
+    post:
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+      requestBody:
+        content: 
+          multipart/form-data: # Media type
+            schema:            # Request payload
+              type: object
+              properties:      # Request parts
+                file:
+                  description: >
+                    A JSON file containing the list of video files to be transferred and indexed.
+                  type: string
+                  format: application/octet-stream
+      responses:
+        '200':
+          description: One or more video indexing tasks index has successfully been created.
+        '400':
+          description: The request has failed.
+  /indexes/{index-id}/videos:
+    get:
+      summary: List video vectors.
+      description: >
+        Returns a list of the video vectors in the specified index. The API returns your video vectors sorted by creation date, with the newest at the top of the list.
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/page_limit'
+        - $ref: '#/components/parameters/sort_by'
+        - $ref: '#/components/parameters/sort_option'
+        - name: _id
+          in: query
+          description: > 
+            Filter by the unique identifier of a video index.
+          required: false
+          type: Boolean
+        - name: filename
+          in: query
+          description: >
+            Filter by filename.
+          required: false
+          type: string
+        - name: duration
+          in: query
+          description: >
+            Filter by duration. Expressed in seconds.
+          type: Integer
+        - name: fps
+          in: query
+          description: >
+            Filter by frames per second.
+          required: false
+          type: Integer
+        - name: width
+          in: query
+          description: >
+            Filter by width.
+          required: false
+          type: Integer
+        - name: height
+          in: query
+          description: >
+            Filter by height.
+          required: false
+          type: Integer
+        - name: size
+          in: query
+          description: >
+            Filter by size. Expressed in bytes.
+          required: false
+          type: Integer
+        - name: created_at
+          in: query
+          description: >
+            Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task was created.
+          required: false
+          type: string
+        - name: updated_at
+          in: query
+          description: >
+            Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task was updated.
+          required: false
+          type: string
+        - name: indexed_at
+          in: query
+          description: >
+            Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video has finished indexing.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: The video indexes associated with the specified index have successfully been retrieved.
+        '400':
+          description: The request has failed.
+
+
 components:
   parameters:
     Content-Type:
@@ -137,4 +472,30 @@ components:
         
         **Max**: `100`.
       type: Integer
+      required: false
+    sort_by:
+      name: sort_by
+      in: query
+      description: >
+        The field to sort on. The following options are available:
+
+        - `updated_at`: Sorts by the time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, when the item was updated.
+        
+        - `created_at`: Sorts by the time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, when the item was created.
+        
+        **Default**: `created_at`.
+      type: string
+      required: false
+    sort_option:
+      name: sort_option
+      in: query
+      description: >
+        The sorting direction. The following options are available:
+        
+        - `asc` 
+        
+        - `desc`
+
+        **Default**: `desc`.
+      type: string
       required: false
