@@ -6,7 +6,7 @@ accepts:
 produces:
   - application/json
 servers:
-  - url: http://35.82.130.225:8080 
+  - url: http://35.82.130.225:8080
 paths:
   /engines:
     get:
