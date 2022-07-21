@@ -434,7 +434,178 @@ paths:
           description: The video indexes associated with the specified index have successfully been retrieved.
         '400':
           description: The request has failed.
+  /indexes/{index-id}/videos/{video-id}:
+    get:
+      summary: Retrieve a video vector.
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: index-id
+          in: path
+          description: >
+            The unique identifier of the index with which the video vector is associated.
+          required: true
+          type: string
+        - name: video-id
+          in: path
+          description: >
+            The unique identifier of the video vector to retrieve.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The specified video vector has successfully been retrieved.
+        '400':
+          description: The request has failed.
+    delete:
+      summary: Delete a video vector.
+      description: >
+        Delete the specified video vector. This action cannot be undone.
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: index-id
+          in: path
+          description: >
+            The unique identifier of the index with which the video vector is associated.
+          required: true
+          type: string
+        - name: video-id
+          in: path
+          description: >
+            The unique identifier of the video vector to delete.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The specified video vector has successfully been deleted.
+        '400':
+          description: The request has failed.
+  /indexes/{index-id}/videos/{video-id}/transcription:
+    get:
+      summary: Retrieve a transcription of the spoken words.
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: start
+          in: query
+          description: >
+            The start of the time range (in seconds) to retrieve transcription for.
+          required: false
+          type: Integer
+        - name: end
+          in: query
+          description: >
+            The end of the time range (in seconds) to retrieve transcription for.
+          required: false
+          type: Integer
+      responses:
+        '200':
+          description: Transcription has successfully been retrieved.
+        '400':
+          description: The request has failed.
+  /search:
+    post:
+      summary: Make a search request.
+      description: Searches for relevant matches in an index.
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: next-page-id
+          in: path
+          description: >
+            A token that identifies the page to retrieve. If not specified, the API returns the first page.
+          required: false
+          type: string
+        - name: query
+          in: body
+          description: >
+            Your search query. Note that the API supports full natural language-based search. The following examples are valid queries: "birds flying near a castle", "sun shining on water", "chickens on the road", "an officer holding a child's hand.", "crowd cheering in the stadium."
+          required: true
+          type: string
+        - name: index_id
+          in: body
+          description: >
+            The unique identifier of the index to search.
+          required: true
+          type: string
+        - name: search_options
+          in: body
+          description: >
+            Search options specify the source of information the API service uses when performing a search.
+            The following values are supported:
 
+            - `visual`: Allows you to search by objects, actions, sound, movements, places, situational events, and complex audio-visual text descriptions.
+            
+            - `conversation`: Allows you to find the exact point in your video where the specified word or phrase is mentioned.
+            
+            - `text_in_video`: Allows you to search for text that appears in your videos (OCR).
+          
+            
+            The search options you specify must be a subset of the indexing options used when you created the index.
+          
+            You can specify multiple search options in conjunction with the `operator` parameter described below to broaden or narrow your search.
+          required: true
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 3
+          example: ["visual", "conversation"]
+        - name: operator
+          in: body
+          description: >
+            When you specify more than one search option, you can use this parameter to indicate the logical operation that the API service should perform.
+            
+            The following logical operators are supported:
+            
+            - `or`: The API returns the results for which any search option matches.
+            
+            - `and`: The API returns only the results for which all search options match.
+
+            For details and examples, see the [Multiple Search Options](/guides/performing-searches/multiple-search-options) page.
+
+            
+            **Default**: `or`.
+        - name: conversation_option
+          in: body
+          description: >
+            Specifies the type of search the API service will perform. The following values are supported:
+            
+            - `semantic`: The API service returns results that are semantically similar to the search query even if the results don't exactly match the search query.
+            
+            - `transcription`: The API service returns only the exact matches. Note that `transcription` can only be used with a single search option. For example, you cannot set the `search_option parameter` to equal `["visual", "conversation", "text_in_video"]` and the `conversation_option` parameter to equal `transcription`.
+
+
+            **Default**: `semantic`. 
+        - $ref: '#/components/parameters/page_limit'
+        - name: filter
+          in: body
+          description: >
+            Use the `filter` parameter to narrow the scope of your query.  This parameter is of type Object and can contain one or more of the following fields:
+
+            - `id`: An array of strings that restricts your search results based on the specified video IDs.
+            
+            - `duration`: A numeric field that restricts your search results based on duration, expressed in seconds.
+            
+            - width: A numeric field that restricts your search results based on width.
+            
+            - `height`: A numeric field that restricts your search results based on height.
+ 
+            - `size`: A numeric field that restricts your search results based on size, expressed in bytes.
+
+            
+            For string fields, the filter `parameter` returns only the results that equal the value you specify. The following example filters on the videos whose title is "Animal Encounters part 1": `"title": "Animal Encounters part 1"`.
+
+            For numeric fields, the `filter` parameter returns the results that match based on the arithmetic comparison. The following example filters on the videos whose height is greater than or equal to 400 and less than or equal to 500: `"height": { "gte": 400, "lte": 500 }`.
+
+            
+            For more details and examples, see the [Filter Search Results Based on Metadata](/concepts/filtering/metadata) page.
+      responses:
+        '200':
+          description: Successfully performed a search request.
+        '400':
+          description: The request has failed.
 
 components:
   parameters:
@@ -467,9 +638,11 @@ components:
       in: query
       description: >
         The number of items to return on each page.
+
         
         **Default**: `10`.
         
+
         **Max**: `100`.
       type: Integer
       required: false
