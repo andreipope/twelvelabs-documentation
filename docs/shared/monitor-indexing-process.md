@@ -1,7 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-_(Optional)_ You can use the `tasks/{_id}` <!--TODO: Add link --> endpoint to monitor the indexing process. Wait until the status shows as `ready`:
+_(Optional)_ You can use the [tasks/{_id}](/api-reference/indexes-tasks#retrieve-a-video-indexing-task) endpoint to monitor the indexing process. Wait until the status shows as `ready`:
 
   <Tabs>
   <TabItem value="py" label="Python">

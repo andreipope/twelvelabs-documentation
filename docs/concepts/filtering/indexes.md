@@ -38,7 +38,7 @@ The examples in this section assume you're familiar with the concepts that are d
 <ProgrammingLanguages />
 
 :::info **NOTE**
-Depending on the endpoint, you can filter on various fields. For details, see the **API Reference** <!--TODO: Add link--> section.
+Depending on the endpoint, you can filter on various fields. For details, see the [API Reference](/api-reference) section.
 :::
 
 ### Filter on a Specific Date

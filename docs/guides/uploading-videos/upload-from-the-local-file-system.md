@@ -22,7 +22,7 @@ In this guide you'll learn how to upload a video file from the local file system
 
 - <VideoRequirements />
 - <Understand />
-- You've already created an index. For details, see the Create an Index section. <!-- TODO: Add link -->
+- You've already created an index. For details, see the [Create an Index](/api-reference/indexes#create-an-index) section.
 
 ## Recommendations
 
@@ -74,7 +74,7 @@ In this guide you'll learn how to upload a video file from the local file system
   </TabItem>
   </Tabs>
 .
-4. Upload your video. Call the **tasks endpoint** <!--TODO: Add link --> and store the result in a variable named `response`:
+4. Upload your video. Call the [tasks](/api-reference/indexes-tasks) endpoint and store the result in a variable named `response`:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -128,9 +128,4 @@ In this guide you'll learn how to upload a video file from the local file system
   ```
   
   :::info **NOTE**
-  For details about the possible statuses, see the **Indexes/Tasks** page. <!--TODO: Add link-->
-  :::
-
-## Related Topics
-
-- **Indexes/Tasks** <!--TODO: Add link-->
+  For details about the possible statuses, see the [Indexes/Tasks](/api-reference/indexes-tasks) page.

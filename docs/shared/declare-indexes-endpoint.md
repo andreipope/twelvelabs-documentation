@@ -1,7 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Declare the `indexes` <!--TODO: Add link--> endpoint:
+Declare the [indexes](/api-reference/indexes) endpoint:
 
   <Tabs>
   <TabItem value="py" label="Python">

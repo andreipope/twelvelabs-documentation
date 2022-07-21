@@ -25,7 +25,7 @@ The diagrams below explain the difference between specifying the `OR` and `AND` 
 
 :::info **NOTES**
 - The `operator` parameter is optional. If omitted, the API service will perform a logical `OR` operation. For clarity, the examples in this section always specify the `operator` parameter.
-- For a description of each field in the response, see the **Search** page. <!-- TODO: Add link-->
+- For a description of each field in the response, see the [Search](/api-reference/search)page.
 :::
 
 <ProgrammingLanguages />

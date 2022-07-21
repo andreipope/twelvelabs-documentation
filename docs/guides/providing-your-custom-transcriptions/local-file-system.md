@@ -23,7 +23,7 @@ In this guide you'll learn how to upload a video and provide a transcription whe
 - Your transcription must be in the SRT or VTT format.
 - <VideoRequirements />
 - <Understand />
-- You've already created an index. For details, see the Create an Index section. <!--TODO: Add index.-->
+- You've already created an index. For details, see the [Create an Index](/api-reference/indexes#create-an-index) section.
 
 ## Recommendations
 
@@ -107,7 +107,7 @@ In this guide you'll learn how to upload a video and provide a transcription whe
   </TabItem>
   </Tabs>
 
-5. Upload your video and transcription files. Call the `tasks endpoint` <!--TODO: Add link--> and store the result in a variable named `response`:
+5. Upload your video and transcription files. Call the [tasks](/api-reference/indexes-tasks) and store the result in a variable named `response`:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -162,9 +162,4 @@ In this guide you'll learn how to upload a video and provide a transcription whe
   ```
   
   :::info **NOTE:**
-  For details about the possible statuses, see the **Indexes/Tasks** page. <!--TODO: Add link-->
-  :::
-
-## Related Topics
-
-- **Indexes/Tasks** <!-- TODO: Add link -->
+  For details about the possible statuses, see the [Indexes/Tasks](/api-reference/indexes-tasks) page. 

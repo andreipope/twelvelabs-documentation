@@ -3,7 +3,7 @@ title: 2. Download and Edit the List of Videos
 id: download-and-edit-the-list-of-videos 
 ---
 
-The [Integrations](https://api.twelvelabs.io/integrations) page allows you to download the list of files in your AWS S3 bucket as a JSON. The structure of the JSON file is described on the Indexes/Tasks/Transfers pagec <!--TODO: Add link-->. Once you've downloaded the JSON file, you can edit the fields in a plain text editor. For example, you can add transcription files or remove the files you don't want to upload and index.
+The [Integrations](https://api.twelvelabs.io/integrations) page allows you to download the list of files in your AWS S3 bucket as a JSON. The structure of the JSON file is described on the [Indexes/Tasks/Transfers](/api-reference/indexes-tasks-transfers) page. Once you've downloaded the JSON file, you can edit the fields in a plain text editor. For example, you can add transcription files or remove the files you don't want to upload and index.
 
 ## Prerequisites
 

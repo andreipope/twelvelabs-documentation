@@ -39,7 +39,7 @@ On success, it contains the following fields:
     - `extremely low`: for scores greater than 70 and less than 80
 - `page_info`: An object that provides information about pagination. It has the following fields:
   - `limit_per_page`: The maximum number of items on each page.
-  - `page_expired_at`: A string representing the date and time, in the RFC 3339 <!--TODO: Add link--> format, that the page expires.
+  - `page_expired_at`: A string representing the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the page expires.
   - `total_result`: The total number of results.
 - `query`: The search query you specified.
 - `search_options`: The search options you used.

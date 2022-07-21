@@ -15,7 +15,7 @@ The video search service is composed of the following main components:
 
 - **Engines**: An engine indexes your videos and allows you to search for particular information. For now, only a single engine named marengo is available. However, Twelve Labs plans to add more engines in the future versions of the API. Each engine will use its own family of deep learning models to index data and will have a pricing model associated with it. For details about pricing, contact us at sales[at]twelvelabs.io.
 - **Video Vectors**: When you upload a video, the engine transforms it into a list of floating numbers that contains multiple features such as time, objects, text in video, conversations, and actions. These lists are named video vectors. A video vector is like a compressed version of the video and contains all the information that Twelve Labs' deep-learning models need to perform fast, semantic, accurate, and scalable searches.
-- Indexing options: Indexing options determine how the engine processes your videos and the types of searches you can perform. Twelve Labs currently offers three different indexing options: `visual`, `conversation`, and `text_in_video`. For more details, see the **Indexing Options** page. <!-- TODO: Add link-->
+- Indexing options: Indexing options determine how the engine processes your videos and the types of searches you can perform. Twelve Labs currently offers three different indexing options: `visual`, `conversation`, and `text_in_video`. For more details, see the [Indexing Options](/concepts/indexing-options) page.
 - **Indexes**: An index groups one or more video vectors and is the most granular level at which you can perform a search. When you create an index, you must specify the following properties:
   - Name
   - Engine
@@ -23,7 +23,7 @@ The video search service is composed of the following main components:
 
   :::info **NOTES**
   - you cannot modify the engine or the indexing options once the index has been created.
-  - Indexes use a push model, meaning that you can push videos to an index whenever you like. For details, see the **Indexes/Tasks** endpoint. <!-- TODO: Add link-->
+  - Indexes use a push model, meaning that you can push videos to an index whenever you like. For details, see the *[ndexes/Tasks](/api-reference/indexes-tasks) page.
   :::
 
 ## Workflow

@@ -11,16 +11,16 @@ import Understand from '../../shared/prerequisites-understand-page.md'
 
 At a high level, extracting a transcription from a video involves the following steps:
 
-- Upload and index a video. When you upload a video by calling the `indexes/tasks` <!--TODO: add link--> endpoint, the API service creates a video indexing task and returns its unique identifier. 
-- Retrieve the unique identifier of your video vector. Once the API service finishes indexing your video, it stores all the information it needs to perform searches as video vectors. You can retrieve the unique identifier of the video vector by calling the `/indexes/tasks/:task-id` <!--TODO: Add link--> endpoint and passing it the unique identifier of your video indexing task.
-- Retrieve the transcription. Use the `indexes/:index-id/videos/:video-id/transcription` <!--TODO: Add link--> endpoint passing it the unique identifiers of your index and video vector.
+- Upload and index a video. When you upload a video by calling the [indexes/tasks](/api-reference/indexes-tasks) endpoint, the API service creates a video indexing task and returns its unique identifier. 
+- Retrieve the unique identifier of your video vector. Once the API service finishes indexing your video, it stores all the information it needs to perform searches as video vectors. You can retrieve the unique identifier of the video vector by calling the [indexes/tasks/:task-id](/api-reference/indexes-tasks#retrieve-a-video-vector-id-based-on-a-task-id) endpoint and passing it the unique identifier of your video indexing task.
+- Retrieve the transcription. Use the [indexes/:index-id/videos/:video-id/transcription](/api-reference/indexes-videos#retrieve-a-transcription) endpoint passing it the unique identifiers of your index and video vector.
 
 <ProgrammingLanguages />
 
 ## Prerequisites
 
 - <Understand />
-- You've already uploaded a video. The unique identifiers of your index and video indexing task are stored in two variables named `INDEX_ID` and `TASK_ID`. For instructions, see the **Uploading Videos** <!--TODO: Add link--> page.
+- You've already uploaded a video. The unique identifiers of your index and video indexing task are stored in two variables named `INDEX_ID` and `TASK_ID`. For instructions, see the [Uploading Videos](/guides/uploading-videos) page.
 
 ## Retrieve the Unique Identifier of Your Video Vector
 
@@ -253,8 +253,6 @@ At a high level, extracting a transcription from a video involves the following 
 
 ## Related Topics
 
-- Uploading Videos
-- Indexes/Tasks
-- Indexes/Videos
-
-<!--TODO: Add links-->
+- [Uploading Videos](/guides/uploading-videos)
+- [Indexes/Tasks](/api-reference/indexes-tasks)
+- [Indexes/Videos](/api-reference/indexes-videos)

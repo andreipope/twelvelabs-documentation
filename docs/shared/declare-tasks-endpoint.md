@@ -1,7 +1,7 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Declare the `tasks` <!--TODO: Add link--> endpoint:
+Declare the [tasks](/api-reference/indexes-tasks) endpoint:
 
   <Tabs>
   <TabItem value="py" label="Python">

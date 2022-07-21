@@ -10,7 +10,7 @@ import VideoRequirements from '../../shared/video-requirements.md'
 import Upload360pVideos from '../../shared/upload-360p-videos.md'
 import DeclareTasksEndpoint from '../../shared/declare-tasks-endpoint.md'
 
-Cloud-to-cloud transfers allow you to group multiple video indexing operations in a single API request. For details about this feature, see the **Cloud-to-Cloud Transfers** <!--TODO: Add link--> page. The [Dashboard](https://api.twelvelabs.io/dashboard) page allows you to download the list of videos in your AWS S3 bucket as a JSON, and you can provide transcriptions by editing this file in a plain-text editor.
+Cloud-to-cloud transfers allow you to group multiple video indexing operations in a single API request. For details about this feature, see the [Cloud-to-Cloud Transfers](/guides/uploading-videos/cloud-to-cloud-transfers) page. The [Dashboard](https://api.twelvelabs.io/dashboard) page allows you to download the list of videos in your AWS S3 bucket as a JSON, and you can provide transcriptions by editing this file in a plain-text editor.
 
 ## Prerequisites
 
@@ -85,7 +85,7 @@ Cloud-to-cloud transfers allow you to group multiple video indexing operations i
   </TabItem>
   </Tabs>
 
-5. Upload the JSON file. Call the `indexes/tasks/transfers` <!--TODO: Add link--> endpoint, store the result in a variable named `response`, and print the status code and the response:
+5. Upload the JSON file. Call the [indexes/tasks/transfers](/api-reference/indexes-tasks-transfers) endpoint, store the result in a variable named `response`, and print the status code and the response:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -125,6 +125,5 @@ Cloud-to-cloud transfers allow you to group multiple video indexing operations i
 
 ## Related Topics
 
-- **Indexes/Tasks/Transfers** <!--TODO: Add link-->
-
+- [Indexes/Tasks/Transfers](/api-reference/indexes-tasks-transfers)
 

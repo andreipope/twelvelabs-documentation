@@ -42,13 +42,9 @@ The sections below contain reference documentation for the endpoints that consti
 - [Indexes/Videos](/api-reference/indexes-videos)
 - [Search](/api-reference/search)
 
-<!--TODO: Add links-->
-
 ## Error Codes
 This section contains a list of the error codes that the API returns:
 
-- Error Codes
-
-<!--TODO: Add link-->
+- [Error Codes](/api-reference/error-codes)
 
 

@@ -16,7 +16,5 @@ This section provides examples demonstrating how to perform searches. The API al
 
 For details, proceed to one of the following pages:
 
-- Single Search Option
-- Multiple Search Options
-
-<!--TODO: Add links-->
+- [Single Search Option](/guides/performing-searches/single-search-option)
+- [Multiple Search Options](/guides/performing-searches/multiple-search-options)

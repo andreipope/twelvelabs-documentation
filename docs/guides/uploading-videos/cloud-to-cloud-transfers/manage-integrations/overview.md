@@ -12,5 +12,4 @@ Follow the steps in the sections below to view statistics, syncronize data, and 
 - [Synchronize Data](/guides/uploading-videos/cloud-to-cloud-transfers/manage-integrations/synchronize-data)
 - [Remove an Integration](/guides/uploading-videos/cloud-to-cloud-transfers/manage-integrations/remove-an-integration)
 
-<!-- TODO: Add link -->
 

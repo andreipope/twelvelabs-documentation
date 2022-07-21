@@ -1,6 +1,7 @@
 ---
 title: Uploading Videos
 id: overview
+slug: /guides/uploading-videos
 ---
 
 Twelve Labs offers the following option for uploading videos:

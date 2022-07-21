@@ -29,7 +29,7 @@ The API service checks for duplicate files using hashes and will not upload the 
 
 ## Procedure
 
-1. Declare the `indexes/tasks/transfers` <!--TODO: Add link--> endpoint:
+1. Declare the [indexes/tasks/transfers](/api-reference/indexes-tasks-transfers) endpoint:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -86,7 +86,7 @@ The API service checks for duplicate files using hashes and will not upload the 
   </TabItem>
   </Tabs>
 
-4. Upload the JSON file. Call the `indexes/tasks/transfers` <!--TODO: Add link--> endpoint, store the result in a variable named `response`, and print the status code and response:
+4. Upload the JSON file. Call the [indexes/tasks/transfers](/api-reference/indexes-tasks-transfers) endpoint, store the result in a variable named `response`, and print the status code and response:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -126,6 +126,4 @@ The API service checks for duplicate files using hashes and will not upload the 
 
 ## Related Topics
 
-- **Indexes/Tasks/Transfers** <!--TODO: Add link -->
-
-
+- [ndexes/Tasks/Transfers](/api-reference/indexes-tasks-transfers)

@@ -8,14 +8,14 @@ import TabItem from '@theme/TabItem';
 
 import ProgrammingLanguages from '../../shared/programming-languages-guides.md'
 
-The `search` <!--TODO: Add link--> endpoint supports the following parameters that allow you to control pagination behavior:
+The [search](/api-reference/search) endpoint supports the following parameters that allow you to control pagination behavior:
 - The identifier of the page: You can append to the URL the identifier of the page you want to retrieve. If not specified, the API returns the first page.
 - `page_limit`: Specifies the number of items on each page. The default value is `10` and the maximum value is `100`. Note that the `page_limit` parameter is set in the request body.
 
 When making the initial request, you set a `page_limit` value of `X` and do not specify the identifier of the page you want to retrieve. The response will contain the first page of results, the identifier of the next page, and the time when the page expires. To retrieve the rest of the pages, append the identifier of the page you want to retrieve to the URL, while the `page_limit`  parameter remains the same. The subsequent responses will contain the results on that page, the identifiers of the next and previous pages, and the time when the page expires. When the API does not return the identifier of the previous page, then this is the first page. When the API does not return the identifier of the next page, you've reached the end of the dataset.
 
 :::info **NOTES**
-- For a description of each field in the response, see the **Search** <!--TODO: Add link--> page.
+- For a description of each field in the response, see the [Search](/api-reference/search) page.
 - The identifiers of the next and previous pages can become invalid when the page expires or items are added or removed. Do not store them in your application. Using an expired or invalid page identifier returns an **HTTP 400 token expired or invalid token** error.
 :::
 

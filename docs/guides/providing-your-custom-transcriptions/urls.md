@@ -24,7 +24,7 @@ In this guide you'll learn how to upload a video file and provide a transcriptio
 - <VideoRequirements />
 - Ensure that the URL of the video and transcription are publicly accessible.
 <Understand />
-- You've already created an index. For details, see the **Create an Index** section. <!--TODO: Add link -->
+- You've already created an index. For details, see the [Create an Index](/api-reference/indexes#create-an-index) section.
 
 ## Recommendations
 
@@ -65,7 +65,7 @@ In this guide you'll learn how to upload a video file and provide a transcriptio
   </TabItem>
   </Tabs>
 
-3. Upload your video. Call the `tasks`<!--TODO: Add link--> endpoint and store the result in a variable named `response`:
+3. Upload your video. Call the [tasks](/api-reference/indexes-tasks) endpoint and store the result in a variable named `response`:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -109,9 +109,5 @@ In this guide you'll learn how to upload a video file and provide a transcriptio
   ```
 
   :::info **NOTE**
-  For details about the possible statuses, see the **Indexes/Tasks** page.
+  For details about the possible statuses, see the [Indexes/Tasks](/api-reference/indexes-tasks) page.
   :::
-
-## Related Topics
-
-- **Indexes/Tasks** <!-- TODO: Add link-->

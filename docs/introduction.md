@@ -20,10 +20,8 @@ Developers using Twelve Labs Video Understanding API have access to the followin
 - **Scalability**: With Twelve Labs, your applications rely on a cloud-native distributed infrastructure that can handle thousands of simultaneous indexing and search requests.
 
 :::tip
-Twelve Labs is continuously adding new features. See the **Roadmap** page for details.
+Twelve Labs is continuously adding new features. See the [Roadmap](/roadmap) page for details.
 :::
-
-<!-- TODO: Add link to the roadmap page -->
 
 ### Twelve Labs Video Understanding API Compared to Other Solutions
 
@@ -33,5 +31,4 @@ The table below provides a basic comparison between Twelve Labs Video Understand
 
 - **Use a single API** to access Twelve Labs AI-powered video search service that allows you to find the information you’re looking for in your videos. Focus on building your application instead of collating data from separate image and speech APIs.
 - **Write complex semantic queries in everyday language** that semantically describe the exact moment you want to find in your videos instead of filtering pre-generated tags.
-- **Adapt the AI model to your domain** instead of relying on a single model. Note that this feature is on the **roadmap**.
-<!-- TODO: Add link-->
+- **Adapt the AI model to your domain** instead of relying on a single model. Note that this feature is on the [roadmap](/roadmap).

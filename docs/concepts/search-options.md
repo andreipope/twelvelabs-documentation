@@ -10,13 +10,12 @@ Search options specify the source of information the search engine uses when per
 - `text_in_video`: Allows you to search for text that appears in your videos (OCR).
 
 :::info **NOTES**:
-- The search options you specify must be a subset of the **indexing options** <!--TODO: Add link --> used when you created the index.
-- You can specify multiple search options in conjunction with the `operator` parameter to broaden or narrow your search. For examples, see the **Multiple Search Options** <!--TODO: Add link--> page.
+- The search options you specify must be a subset of the [indexing options](/concepts/indexing-options) used when you created the index.
+- You can specify multiple search options in conjunction with the `operator` parameter to broaden or narrow your search. For examples, see the [Multiple Search Options](/guides/performing-searches/multiple-search-options) page.
 :::
 
 ## Related Topics
 
-- **Performing Searches**
-- **Search**
+- [Performing Searches](/guides/performing-searches)
+- [Search](/api-reference/search)
 
-<!--TODO: Add links-->

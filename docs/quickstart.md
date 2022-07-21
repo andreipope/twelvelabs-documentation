@@ -25,7 +25,6 @@ This guide demonstrates how to build a production-ready search service by using 
 - [Source Code](#source-code)
 - [Related Topics](#related-topics)
 
-<!--TODO: Add links-->
 Note that each step is composed of a single API call.
 
 <ProgrammingLanguages />
@@ -161,9 +160,9 @@ Twelve Labs recommends you use environment variables to pass configuration to yo
 
   Note the following about this code:
     - Line 6 specifies that the AI-powered search engine is `marengo`. For details about search engines, see the [Architecture](understand.md#architecture) section.
-    - Line 7 specifies the indexing options. An indexing option specifies a source of information that the AI-powered search engine indexes and uses when performing searches. In this example, the API service will index `visual`, `conversation`, and `text_in_video` information. For more details, see the **Indexing Options** page. <!-- TODO: Add link -->
+    - Line 7 specifies the indexing options. An indexing option specifies a source of information that the AI-powered search engine indexes and uses when performing searches. In this example, the API service will index `visual`, `conversation`, and `text_in_video` information. For more details, see the [Indexing Options](/concepts/indexing-options) page.
 
-6. Create an index. Call the API by invoking the `indexes` endpoint <!--TODO: Add link --> and store the result in a variable named `response`:
+6. Create an index. Call the API by invoking the [indexes](/api-reference/indexes) endpoint and store the result in a variable named `response`:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -220,8 +219,8 @@ Twelve Labs recommends you use environment variables to pass configuration to yo
 Once you've created an index, you can upload a video. When the video has finished uploading, Twelve Labs' fully-managed video search engine will automatically create a rich set of vectors that you can use to search through your video.
 
 :::info **NOTES**
-- Although this section demonstrates how to upload a file from the local file system, note that the API service allows you to upload a file from a URL or group multiple video uploading operations in a single API request using the cloud-to-cloud transfers feature. For instructions, see the Uploading Videos section. <!--TODO: Add link-->
-- The API service allows you to provide your own custom transcription file. For instructions, see the Providing Your Custom Transcriptions section. <!--TODO: Add link -->
+- Although this section demonstrates how to upload a file from the local file system, note that the API service allows you to upload a file from a URL or group multiple video uploading operations in a single API request using the cloud-to-cloud transfers feature. For instructions, see the [Uploading Videos](/guides/uploading-videos) section.
+- The API service allows you to provide your own custom transcription file. For instructions, see the [Providing Your Custom Transcriptions](/guides/providing-your-custom-transcriptions) section.
 :::
 
 1. <DeclareTasksEndpoint /> 
@@ -271,7 +270,7 @@ Once you've created an index, you can upload a video. When the video has finishe
   </TabItem>
   </Tabs>
 
-4. Upload your video. Call the `tasks` <!--TODO: Add link--> endpoint and store the result in a variable named response:
+4. Upload your video. Call the [tasks](/api-reference/indexes-tasks) endpoint and store the result in a variable named response:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -331,12 +330,12 @@ Once you've created an index, you can upload a video. When the video has finishe
     - Line 5 shows the ID of your index
   :::
 
-  For details about the possible statuses, see the `Indexes/Tasks` <!--TODO: Add link--> page.
+  For details about the possible statuses, see the [Indexes/Tasks](/api-reference/indexes-tasks) page.
 
 
 ## Make a Search Request
 
-When the API service has finished indexing the video, it can be searched by using the `search` <!-- TODO: Add link--> endpoint.
+When the API service has finished indexing the video, it can be searched by using the [search](/api-reference/search) endpoint.
 
 1. Define the `search` endpoint:
 
@@ -396,9 +395,9 @@ When the API service has finished indexing the video, it can be searched by usin
       - To combine visual and conversation:`["visual", "conversation"]`.
       - To combine visual and conversation: `["visual", "conversation"`].
       
-      When you combine multiple search options, you can use the operator parameter to broaden or narrow your search.  For details and examples, see the **Multiple Search Options** <!--TODO: Add link--> page.
+      When you combine multiple search options, you can use the operator parameter to broaden or narrow your search.  For details and examples, see the [Multiple Search Options](/guides/performing-searches/multiple-search-options) page.
 
-3. Call the `search` <!--TODO: Add link--> endpoint, passing it your query parameters:
+3. Call the [search](/api-reference/search) endpoint, passing it your query parameters:
 
   <Tabs>
   <TabItem value="py" label="Python">
@@ -518,15 +517,14 @@ When the API service has finished indexing the video, it can be searched by usin
                    'total_duration': 1363},
    'type': 'search_create'}
   ```
-  For more examples, see the **Performing Searches** <!--TODO: Add link--> page.
+  For more examples, see the [Performing Searches](/guides/performing-searches) page.
 
 
 ## Source Code
 
 You can find the source code for this guide in the [twelvelabs-io/examples](https://github.com/twelvelabs-io/examples) GitHub repository.
 
-
 ## Related Topics
 
-- **API Reference** <!-- TODO: Add link-->
+- [API Reference](/api-reference)
 

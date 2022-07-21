@@ -156,10 +156,9 @@ Status code: 200
 ```
 
 ## Related Topics
-- Make a Search Request
-- List Video Indexes
+- [Make a Search Request](/api-reference/search#make-a-search-request)
+- [List Video Vectors]
 
-<!--TODO: Add indexes-->
 
 ## How Do Multiple Search Options Work?
 

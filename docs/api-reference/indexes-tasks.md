@@ -8,7 +8,7 @@ import "swagger-ui-react/swagger-ui.css"
 
 import DisplayMethod from "../../src/components/DisplayMethod"
 
-A task represents a request to upload and index a video. A task starts when you begin uploading your video by calling the **POST** method <!--TODO: Add link--> of the `indexes/tasks` endpoint, and it can have one of the following statuses:
+A task represents a request to upload and index a video. A task starts when you begin uploading your video by calling the **POST** method of the [indexes/tasks](/api-reference/indexes-tasks) endpoint, and it can have one of the following statuses:
 - **Validating**: Your video has finished uploading, and the API service is validating it by performing the following checks:
   - Resolution must be greater or equal than 360p and less than 1080p (FHD).
   - Duration must be between 15 seconds and 2 hours (7,200s).

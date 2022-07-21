@@ -18,12 +18,12 @@ To paginate through results, begin with a page value of `1` and a `page_limit` v
 Each response contains the items on the page you requested, the page you retrieved, and the total number of pages. When the page you've retrieved is equal to the total number of pages, you've reached the end of the dataset.
 
 :::info **NOTES**: 
-For a description of each field in the response, see the **Indexes** <!--TODO: Add link--> section.
+For a description of each field in the response, see the [Indexes](/api-reference/indexes) section.
 :::
 
 ## Examples
 
-The following example code retrieves the first page of results using the default value for the page andpage_limit parameters by calling the **GET** method of the `indexes/tasks` <!--TODO: Add link--> endpoint with no parameters:
+The following example code retrieves the first page of results using the default value for the page andpage_limit parameters by calling the **GET** method of the [indexes/tasks](/api-reference/indexes-tasks) endpoint with no parameters:
 
 <Tabs>
 <TabItem value="py" label="Python">
