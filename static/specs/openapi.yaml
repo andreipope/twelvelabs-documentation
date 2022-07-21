@@ -1,12 +1,9 @@
 openapi: 3.0.0
-host: 35.82.130.225:8080 
-basePath: /v1
-accepts:
-  - application/json
-produces:
-  - application/json
 servers:
+  - url: https://api.twelvelabs.io/v1
+    description: Production
   - url: http://35.82.130.225:8080
+    description: Development
 paths:
   /engines:
     get:
@@ -16,17 +13,8 @@ paths:
       tags:
         - Engines 
       parameters:
-        - name: x-api-key
-          in: header
-          description: >
-            Your API key.
-
-            **NOTE:** You can find your API key on the [Dashboard](https://api.twelvelabs.io/dashboard) page.   
-          required: true
-          type: string 
-        - name: Content-Type
-          in: header
-          description: Must be set to `application/json`.
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type' 
       responses:
         '200':
           description: The search engines have successfully been retrieved.
@@ -56,6 +44,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/getEngine'
+        '400':
+          description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
   /indexes:
     post:
       summary: Create an index.
@@ -618,6 +612,15 @@ paths:
 
 components:
   schemas:
+    genericError:
+      type: object
+      properties:
+        error_code:
+          type: string
+          description: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
+        message:
+          type: string
+          description: A human-readable string describing the error.
     engine:
       type: object
       properties:
@@ -639,10 +642,10 @@ components:
           type: string
           example: twelve_labs
         finetune:
-          type: Boolean
+          type: boolean
           example: false
         ready:
-          type: Boolean
+          type: boolean
           example: true
         type:
           type: string
@@ -666,8 +669,9 @@ components:
       name: Content-Type
       in: header
       description: Must be set to `application/json`.
-      type: string
       required: true
+      schema:
+        type: string
     x-api-key:
       name: x-api-key
       in: header
@@ -675,8 +679,9 @@ components:
         Your API key.
 
         **NOTE:** You can find your API key on the [Dashboard](https://api.twelvelabs.io/dashboard) page.
-      type: string
       required: true
+      schema:
+        type: string
     page:
       name: page
       in: query

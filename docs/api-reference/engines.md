@@ -26,13 +26,6 @@ The engine object has the following elements:
 
 <DisplayMethod path="/engines/{engine-id}" method="get"/>
 
-### Response Schema
-The response is in JSON format.
-- On success, it contains an `engine` object.
-- On failure, it contains the following fields:
-  - `error_code`: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
-  - `message`: A human-readable string describing the error.
-
 ## Related Topics
 
 - [Search Engines](/concepts/search-engines)
