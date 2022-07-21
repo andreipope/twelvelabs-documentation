@@ -22,12 +22,6 @@ The engine object has the following elements:
 
 <DisplayMethod path="/engines" method="get"/>
 
-### Response Schema
-
-The response is in JSON format. It contains the following fields:
-- `data`: An array that contains the engines.
-- `type`: Describes the type of operation (`engine_list`). 
-
 ## Retrieve a Search Engine
 
 <DisplayMethod path="/engines/{engine-id}" method="get"/>

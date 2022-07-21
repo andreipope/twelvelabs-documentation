@@ -29,7 +29,12 @@ paths:
           description: Must be set to `application/json`.
       responses:
         '200':
-          description: The search engines have successfully been retrieved.
+          description: testing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEngines'
+                
   /engines/{engine-id}:
     get:
       summary: Retrieve a search engine
@@ -608,6 +613,46 @@ paths:
           description: The request has failed.
 
 components:
+  schemas:
+    getEngines:
+      type: object
+      properties:
+        data:
+          type: array
+          description: An array that contains the `engine` objects.
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                example: marengo
+              created_at:
+                type: string
+                example: 2022-01-01 00:00:00 +0000 UTC
+              updated_at:
+                type: string
+                example: 2022-01-01 00:00:00 +0000 UTC
+              allowed_index_options:
+                type: array
+                items: 
+                  type: string
+                  example: ['visual', 'text_in_video', 'conversation']
+              author:
+                type: string
+                example: twelve_labs
+              finetune:
+                type: Boolean
+                example: false
+              ready:
+                type: Boolean
+                example: true
+              type:
+                type: string
+                example: engine
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: engine_list
   parameters:
     Content-Type:
       name: Content-Type
