@@ -29,7 +29,7 @@ paths:
           description: Must be set to `application/json`.
       responses:
         '200':
-          description: testing
+          description: The search engines have successfully been retrieved.
           content:
             application/json:
               schema:
@@ -52,6 +52,10 @@ paths:
       responses:
         '200':
           description: The specified engine has successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEngine'
   /indexes:
     post:
       summary: Create an index.
@@ -614,6 +618,35 @@ paths:
 
 components:
   schemas:
+    engine:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: marengo2
+        created_at:
+          type: string
+          example: 2022-07-04 03:05:27.068 +0000 UTC
+        updated_at:
+          type: string
+          example: 2022-07-04 03:05:27.068 +0000 UTC
+        allowed_index_options:
+          type: array
+          items: 
+            type: string
+            example: ['visual', 'text_in_video', 'conversation']
+        author:
+          type: string
+          example: twelve_labs
+        finetune:
+          type: Boolean
+          example: false
+        ready:
+          type: Boolean
+          example: true
+        type:
+          type: string
+          example: engine
     getEngines:
       type: object
       properties:
@@ -621,38 +654,13 @@ components:
           type: array
           description: An array that contains the `engine` objects.
           items:
-            type: object
-            properties:
-              _id:
-                type: string
-                example: marengo
-              created_at:
-                type: string
-                example: 2022-01-01 00:00:00 +0000 UTC
-              updated_at:
-                type: string
-                example: 2022-01-01 00:00:00 +0000 UTC
-              allowed_index_options:
-                type: array
-                items: 
-                  type: string
-                  example: ['visual', 'text_in_video', 'conversation']
-              author:
-                type: string
-                example: twelve_labs
-              finetune:
-                type: Boolean
-                example: false
-              ready:
-                type: Boolean
-                example: true
-              type:
-                type: string
-                example: engine
+            $ref: '#/components/schemas/engine'
         type:
           type: string
           description: Describes the type of operation.
           example: engine_list
+    getEngine:
+      $ref: '#/components/schemas/engine'
   parameters:
     Content-Type:
       name: Content-Type
