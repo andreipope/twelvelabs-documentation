@@ -34,6 +34,7 @@ export default class DisplayMethod extends React.Component {
         // url={this.props.url}
         url = "http://localhost:3000/specs/openapi.yaml"
         plugins={[(system) => DisplayMethodPlugin(system, { path: this.props.path, method: this.props.method})]}
+        defaultModelsExpandDepth={-1}
       />
     );
   }
