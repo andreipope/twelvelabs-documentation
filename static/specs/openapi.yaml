@@ -2,7 +2,7 @@ openapi: 3.0.0
 servers:
   - url: https://api.twelvelabs.io/v1
     description: Production
-  - url: http://35.82.130.225:8080
+  - url: http://35.82.130.225:8080/v1
     description: Development
 paths:
   /engines:
@@ -58,38 +58,58 @@ paths:
         - Indexes
       parameters:
         - $ref: '#/components/parameters/x-api-key' 
-        - $ref: '#/components/parameters/Content-Type' 
-        - name: engine-id
-          in: body
-          description: >
-            Specifies the search engine. The following options are available:
-              - `marengo2`
-              - `marengo`
-            
-            **NOTES**:
-              - Twelve Labs strongly recommends you use `marengo2`.
-              - You cannot change the engine once the index has been created.
-          required: true
-          xtype: string
-        - name: index_options
-          in: body
-          description: >
-            Must be a subset of `[visual, conversation, text_in_video]`.
-          required: true
-          type: array
-          example: [visual, conversation, text_in_video]
-        - name: index_name
-          in: body
-          description: >
-            The name of the index. Make sure you use a succinct and descriptive name.
-          required: true
-          type: string
-          example: myIndex
+        - $ref: '#/components/parameters/Content-Type'
+      # Trying to figure out how it's suppoesed to look like
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                engine_id:
+                  type: string
+                  description: >
+                    Specifies the search engine. The following options are available:
+                      - `marengo2`
+                      
+                      - `marengo`
+
+                    **NOTES**:
+
+                      - Twelve Labs strongly recommends you use `marengo2`.
+              
+                      - You cannot change the engine once the index has been created.
+                  example: "marengo2"
+                index_options:
+                  type: array
+                  description: >
+                    Must be a subset of `["visual", "conversation", "text_in_video"]`.
+                  items:
+                    type: string
+                  minItems: 1
+                  maxItems: 3
+                  example: ["visual", "conversation", "text_in_video"]
+                  default: ["visual", "conversation", "text_in_video"]
+                index_name:
+                  type: string
+                  description: >
+                    The name of the index. Make sure you use a succinct and descriptive name.
+                  example: "myIndex"
+                  default: "myIndex"
       responses:
         '200':
           description: An index has successfully been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createIndex'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
     get:
       summary: List indexes
       description: Returns a list of the indexes in your account. The API returns indexes sorted by creation date, with the oldest indexes at the top of the list.
@@ -664,6 +684,21 @@ components:
           example: engine_list
     getEngine:
       $ref: '#/components/schemas/engine'
+    createIndex:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Represents the unique identifier of the `index`` object.
+          example: 62d85fe7340fa665f1fda5dd
+        message:
+          type: string
+          description: A human-readable string describing the result.
+          example: Succesfully created index 'myIndex' index
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: index_create
   parameters:
     Content-Type:
       name: Content-Type
@@ -672,6 +707,7 @@ components:
       required: true
       schema:
         type: string
+        enum: ["application/json"]
     x-api-key:
       name: x-api-key
       in: header
