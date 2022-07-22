@@ -297,9 +297,16 @@ paths:
       responses:
         '200':
           description: A video indexing task has successfully been created.
-
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createdVideoIndexingTask'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
     get:
       summary: List video indexing tasks.
       description: >
@@ -318,58 +325,76 @@ paths:
           description: >
             Filter by the unique identifier of a video indexing task. 
           required: false
-          type: string
+          schema:
+            type: string
         - name: index_id
           in: query
           description: >
             Filter by the unique identifier of an index.
           required: false
-          type: string
+          schema:
+            type: string
         - name: filename
           in: query
           description: >
             Filter by filename.
           required: false
-          type: string
+          schema:
+            type: string
         - name: duration
           in: query
           description: >
             Filter by duration. Expressed in seconds.
           required: false
-          type: Integer
+          schema:
+            type: integer
         - name: width
           in: query
           description: >
             Filter by width.
           required: false
-          type: Integer
+          schema:
+            type: integer
         - name: height
           in: query
           description: >
             Filter by height.
           required: false
-          type: Integer
+          schema:
+            type: integer
         - name: created_at
           in: query
           description: >
             Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task was created.
           required: false
-          type: string
+          schema:
+            type: string
         - name: updated_at
           in: query
           description: >
             Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task was updated.
           required: false
-          type: string
+          schema:
+            type: string
         - name: estimated_time
           in: query
           description: >
             Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task is ready to be searched.
+          schema:
+            type: integer
       responses:
         '200':
           description: The video indexing tasks have successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getVideoIndexingTasks'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
   /indexes/tasks/{task-id}:
     get:
       summary: Retrieve a video indexing task.
@@ -382,12 +407,21 @@ paths:
           description: >
             The unique identifier of the video indexing task to retrieve.
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: The specified video indexing task has successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getVideoIndexingTask'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
   /indexes/tasks/{task-id}/video-id:
     get:
       summary: Retrieve the video ID associated with a task ID
@@ -397,9 +431,12 @@ paths:
         - $ref: '#/components/parameters/x-api-key' 
         - $ref: '#/components/parameters/Content-Type'
         - name: task-id
+          required: true
           in: path
           description: >
             A task ID that the API returned when you created a video indexing task.
+          schema:
+            type: string
       responses:
         '200':
           description: The corresponding video ID has successfully been retrieved.
@@ -745,22 +782,73 @@ components:
         total_duration:
           type: number
           example: 8716.8969
+    videoIndexingTask:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 62a17bf847f5678267ec10cc
+        created_at:
+          type: string
+          example: 2022-06-09T04:50:00.879Z
+        updated_at:
+          type: string
+          example: 2022-06-09T04:55:57.256Z
+        status:
+          type: string
+          example: ready
+        estimated_time:
+          type: string
+          example: 2022-06-09T04:55:53.746Z
+        metadata:
+          type: object
+          properties:
+            duration:
+              type: number
+              example: 531.998133
+            filename:
+              type: string
+              example: 01.mp4
+            height:
+              type: integer
+              example: 480
+            width:
+              type: integer
+              example: 854
     pageInfo:
       type: object
       description: An object that provides information about pagination. 
       properties:
         limit_per_page:
           type: integer
+          description: The maximum number of items on each page.
           example: 10
         page:
           type: integer
+          description: The page you retrieved.
           example: 1
         total_page:
           type: integer
+          description: The total number of pages.
           example: 1
         total_results:
           type: integer
+          description: The total number of results.
           example: 9
+    getVideoIndexingTasks:
+      type: object
+      properties:
+        data:
+          type: array
+          description: An array that contains up to `page_limit` tasks.
+          items:
+            $ref: '#/components/schemas/videoIndexingTask'
+        page_info:
+          $ref: '#/components/schemas/pageInfo'
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: index_task_list
     getIndexes:
       type: object
       properties:
@@ -788,6 +876,17 @@ components:
           type: string
           description: Describes the type of operation.
           example: get_index
+    getVideoIndexingTask:
+      allOf:
+        - $ref: '#/components/schemas/videoIndexingTask'
+        - $ref: '#/components/schemas/getVideoIndexingTaskType'
+    getVideoIndexingTaskType:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: index_task_info
     getEngines:
       type: object
       properties:
@@ -839,6 +938,21 @@ components:
           type: string
           description: Describes the type of operation.
           example: index_delete
+    createdVideoIndexingTask:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: A string representing the unique identifier of the `task` object.
+          example: 62a1ec6d9ea24f052b971a0f
+        message:
+          type: string
+          description:  A human-readable string describing the result.
+          example: Succesfully requested indexing task
+        type:
+          type: string
+          description: Describes the type of operation
+          example: index_task_create
   parameters:
     Content-Type:
       name: Content-Type

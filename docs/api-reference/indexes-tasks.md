@@ -46,64 +46,13 @@ Create a new video indexing task to upload a video to the API service and make i
 
 <DisplayMethod path="/indexes/tasks" method="post"/>
 
-### Response Schema
-
-
-The response is in JSON format. 
-
-On success, it contains the following fields:
-- `_id`: A string representing the unique identifier of the task object.
-- `message`:  A human-readable string describing the result.
-- `type`: Describes the type of operation (`index_task_create`).
-
-On failure, it contains the following fields:
-- `error_code`: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
-- `message`: A human-readable string describing the error.
-
 ## List Video Indexing Tasks
 
 <DisplayMethod path="/indexes/tasks" method="get"/>
 
-
-### Response Schema
-
-The response is in JSON format. 
-
-On success, it contains the following fields:
-- `data`: An array that contains up to `page_limit` tasks.
-- `page_inf`o: An object that provides information about pagination. It has the following fields:
-  - `limit_per_page`: The maximum number of items on each page.
-  - `page`: The page you retrieved.
-  - `total_page`: The total number of pages.
-  - `total_result`: The total number of results.
-  - `type`: Describes the type of operation (`index_task_list`).
-
-On failure, it contains the following fields:
-- `message`: A human-readable string describing the error.
-- `error_code`: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
-
 ## Retrieve a Video Indexing Task
 
 <DisplayMethod path="/indexes/tasks/{task-id}" method="get"/>
-
-### Response Schema
-
-The response is in JSON format. 
-
-On success, it contains the following fields:
-- `_id`: The unique identifier of the video indexing task.
-- `metadata`: An object that contains the following information about the video:
-  - duration
-  - filename
-  - height
-  - width
-- `status`: A string indicating the status of the video indexing task.
-- `updated_at`: A string indicating the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)  format, that the task object was last updated. The API updates this field every time the video indexing task transitions to a different state.
-- `type`: Describes the type of operation (`index_task_info`).
-
-On failure, it contains the following fields:
-- `error_code`: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
-- `message`: A human-readable string describing the error.
 
 ## Retrieve a Video Vector ID Based on a Task ID
 
