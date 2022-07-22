@@ -57,17 +57,3 @@ Create a new video indexing task to upload a video to the API service and make i
 ## Retrieve a Video Vector ID Based on a Task ID
 
 <DisplayMethod path="/indexes/tasks/{task-id}/video-id" method="get"/>
-
-### Response Schema
-
-The response is in JSON format. 
-
-On success, it contains the following fields:
-- `_id`: A string representing the ID of the video index. The API returns this field only when the value of the status field is ready.
-- `exist`: A boolean specifying whether the video is ready to be searched. The API service returns `true` when the value of the `status` field is `ready` and `false` otherwise.
-- `type`: Describes the type of operation (`index_task_video_id`).
-​
-On failure, it contains the following fields:
-- `error_code`: Represents the code associated with the error. See the [Error Codes](/api-reference/error-codes) page for details.
-- `message`: A human-readable string describing the error.
-

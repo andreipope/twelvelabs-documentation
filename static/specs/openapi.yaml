@@ -440,8 +440,16 @@ paths:
       responses:
         '200':
           description: The corresponding video ID has successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getVideoVectorId'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
   /indexes/tasks/transfers:
     summary: Make a cloud-to-cloud transfer
     post:
@@ -916,6 +924,7 @@ components:
           type: string
           description: Describes the type of operation.
           example: index_create
+    
     updatedIndex:
       type: object
       properties:
@@ -953,6 +962,20 @@ components:
           type: string
           description: Describes the type of operation
           example: index_task_create
+    getVideoVectorId:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: A string representing the ID of the video vector. The API returns this field only when the value of the `status` field is `ready`.
+          example: 629dea98f05c91527bc5c1c8
+        exist:
+          type: boolean
+          description: A boolean specifying whether the video is ready to be searched. The API service returns `true`` when the value of the status field is `ready` and `false` otherwise.
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: index_task_video_id
   parameters:
     Content-Type:
       name: Content-Type
