@@ -1,9 +1,9 @@
 openapi: 3.0.0
 servers:
   - url: https://api.twelvelabs.io/v1
-    description: Production
-  - url: http://35.82.130.225:8080/v1
-    description: Development
+#    description: Production
+#  - url: http://35.82.130.225:8080/v1
+#    description: Development
 paths:
   /engines:
     get:
@@ -21,8 +21,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getEngines'
-                
+                $ref: '#/components/schemas/getEngines'          
   /engines/{engine-id}:
     get:
       summary: Retrieve a search engine
@@ -36,7 +35,8 @@ paths:
           in: path
           description: The identifier of the engine to retrieve.
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: The specified engine has successfully been retrieved.
@@ -125,12 +125,14 @@ paths:
           in: query
           description: Filter by the unique identifier of an index.
           required: false
-          type: string
+          schema:
+            type: string
         - name: index_name
           in: query
           description: Filter by the name of the index.
           required: false
-          type: string
+          schema:
+            type: string
         - name: index_options
           in: query
           description: >
@@ -138,12 +140,21 @@ paths:
             
             Example: `index_options=visual,conversation`.
           required: false
-          type: List
+          schema:
+            type: string
       responses:
         '200':
           description: The indexes have successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getIndexes'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
   /indexes/{index-id}:
     get:
       summary: Retrieve an index object.
@@ -156,29 +167,52 @@ paths:
           description: >
             Unique identifier of the index to retrieve.
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
-          description: The specified index has successfully been retrieved.
+          description: The specified index has successfully been retrieved..
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getIndex'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
     put:
       summary: Update an index
-      operaitonId: updateIndex
+      operationId: updateIndex
       parameters:
         - $ref: '#/components/parameters/x-api-key' 
         - $ref: '#/components/parameters/Content-Type'
-        - name: index_name
-          in: body
-          description: >
-            The name of the index.
-          required: true
-          type: string
+      requestBody:
+        required: true
+        content: 
+          application/json: # Media type
+            schema:         # Request payload
+              type: object
+              properties:   # Request parts
+                index_name:
+                  type: string          
+                  description: >
+                    The name of the index.
+                  example: "new_name"
       responses:
         '200':
           description: The specified index has successfully been updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updatedIndex'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
     delete:
       summary: Delete an index
       description: Delete the specified index and all the video indexes within it. This action cannot be undone.
@@ -191,17 +225,27 @@ paths:
           description: >
             Unique identifier of the index to delete.
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: The specified index has successfully been deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deletedIndex'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
   /indexes/tasks:
     post:
       summary: Create a video indexing task.
       operationId: createVideoIndexingTask
       requestBody:
+        required: true
         content: 
           multipart/form-data: # Media type
             schema:            # Request payload
@@ -224,7 +268,7 @@ paths:
                     Specify this parameter to upload a video from a publicly accessible URL.
                   required: false
                 provide_transcription:
-                  type: Boolean
+                  type: boolean
                   description: >
                     A boolean value specifying whether or not you provide a transcription for this video.
                   required: false
@@ -245,6 +289,7 @@ paths:
                 language:
                   type: string
                   description: Must be set to `en`.
+                  default: "en"
                   required: false
       parameters:
         - $ref: '#/components/parameters/x-api-key' 
@@ -252,6 +297,7 @@ paths:
       responses:
         '200':
           description: A video indexing task has successfully been created.
+
         '400':
           description: The request has failed.
     get:
@@ -657,7 +703,7 @@ components:
           type: array
           items: 
             type: string
-            example: ['visual', 'text_in_video', 'conversation']
+            example: ["visual", "text_in_video", "conversation"]
         author:
           type: string
           example: twelve_labs
@@ -670,6 +716,78 @@ components:
         type:
           type: string
           example: engine
+    index:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 62d9bafa90077fc60af827a0
+        index_name:
+          type: string
+          example: myIndex
+        index_options:
+          type: array
+          items: 
+            type: string
+            example: ["visual", 'text_in_video', 'conversation']
+        created_at:
+          type: string
+          example: 2022-07-04T13:58:39.262Z
+        updated_at:
+          type: string
+          example: 2022-07-05T11:11:32.026Z
+        engine_id:
+          type: string
+          example: marengo2
+        video_count:
+          type: integer
+          example: 12
+        total_duration:
+          type: number
+          example: 8716.8969
+    pageInfo:
+      type: object
+      description: An object that provides information about pagination. 
+      properties:
+        limit_per_page:
+          type: integer
+          example: 10
+        page:
+          type: integer
+          example: 1
+        total_page:
+          type: integer
+          example: 1
+        total_results:
+          type: integer
+          example: 9
+    getIndexes:
+      type: object
+      properties:
+        data:
+          type: array
+          description: An array that contains up to `page_limit` indexes.
+          items:
+            $ref: '#/components/schemas/index'
+        page_info:
+          $ref: '#/components/schemas/pageInfo' 
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: index_list
+    getIndex:
+      type: object
+      properties:
+        data:
+          type: object
+          description: An object that contains an `index`` object.
+          properties:
+            data:
+              $ref: '#/components/schemas/index'
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: get_index
     getEngines:
       type: object
       properties:
@@ -699,6 +817,28 @@ components:
           type: string
           description: Describes the type of operation.
           example: index_create
+    updatedIndex:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable string describing the result.
+          example: Succesfully updated index 'myIndex'
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: update_index
+    deletedIndex:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable string describing the result.
+          example: Successfully deleted index 'myIndex'
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: index_delete
   parameters:
     Content-Type:
       name: Content-Type
