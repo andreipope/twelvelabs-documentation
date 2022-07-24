@@ -470,8 +470,16 @@ paths:
       responses:
         '200':
           description: One or more video indexing tasks index has successfully been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericSuccess'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
   /indexes/{index-id}/videos:
     get:
       summary: List video vectors.
@@ -489,65 +497,84 @@ paths:
           description: > 
             Filter by the unique identifier of a video index.
           required: false
-          type: Boolean
+          schema:
+            type: boolean
         - name: filename
           in: query
           description: >
             Filter by filename.
           required: false
-          type: string
+          schema:
+            type: string
         - name: duration
           in: query
           description: >
             Filter by duration. Expressed in seconds.
-          type: Integer
+          schema:
+            type: number
         - name: fps
           in: query
           description: >
             Filter by frames per second.
           required: false
-          type: Integer
+          schema:
+            type: number
         - name: width
           in: query
           description: >
             Filter by width.
           required: false
-          type: Integer
+          schema:
+            type: number
         - name: height
           in: query
           description: >
             Filter by height.
           required: false
-          type: Integer
+          schema:
+            type: integer
         - name: size
           in: query
           description: >
             Filter by size. Expressed in bytes.
           required: false
-          type: Integer
+          schema:
+            type: number
         - name: created_at
           in: query
           description: >
             Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task was created.
           required: false
-          type: string
+          schema:
+            type: string
         - name: updated_at
           in: query
           description: >
             Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video indexing task was updated.
           required: false
-          type: string
+          schema:
+            type: string
         - name: indexed_at
           in: query
           description: >
             Filter by the date and time, in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format, that the video has finished indexing.
           required: false
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: The video indexes associated with the specified index have successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getVideoVectors'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+
   /indexes/{index-id}/videos/{video-id}:
     get:
       summary: Retrieve a video vector.
@@ -559,18 +586,28 @@ paths:
           description: >
             The unique identifier of the index with which the video vector is associated.
           required: true
-          type: string
+          schema:
+            type: string
         - name: video-id
           in: path
           description: >
             The unique identifier of the video vector to retrieve.
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: The specified video vector has successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getVideoVector'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
     delete:
       summary: Delete a video vector.
       description: >
@@ -583,41 +620,122 @@ paths:
           description: >
             The unique identifier of the index with which the video vector is associated.
           required: true
-          type: string
+          schema:
+            type: string
         - name: video-id
           in: path
           description: >
             The unique identifier of the video vector to delete.
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: The specified video vector has successfully been deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deletedVideoVector'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/genericError'
   /indexes/{index-id}/videos/{video-id}/transcription:
     get:
       summary: Retrieve a transcription of the spoken words.
       parameters:
         - $ref: '#/components/parameters/x-api-key' 
         - $ref: '#/components/parameters/Content-Type'
+        - name: index-id
+          in: path
+          description: >
+            The unique identifier of the index with which the video vector is associated.
+          required: true
+          schema:
+            type: string
+        - name: video-id
+          in: path
+          description: >
+            The unique identifier of the video vector for which you want to retrieve a transcription.
+          required: true
+          schema:
+            type: string
         - name: start
           in: query
           description: >
             The start of the time range (in seconds) to retrieve transcription for.
           required: false
-          type: Integer
+          schema:
+            type: number
         - name: end
           in: query
           description: >
             The end of the time range (in seconds) to retrieve transcription for.
           required: false
-          type: Integer
+          schema:
+            type: number
       responses:
         '200':
           description: Transcription has successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retrieveTranscriptionResponse'
         '400':
           description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+  /indexes/{index-id}/videos/{video-id}/text-in-video:
+    get:
+      summary: Retrieve text recognized in a video (OCR)
+      parameters:
+        - $ref: '#/components/parameters/x-api-key' 
+        - $ref: '#/components/parameters/Content-Type'
+        - name: index-id
+          in: path
+          description: >
+            The unique identifier of the index with which the video vector is associated.
+          required: true
+          schema:
+            type: string
+        - name: video-id
+          in: path
+          description: >
+            The unique identifier of the video vector.
+          required: true
+          schema:
+            type: string
+        - name: start
+          in: query
+          description: >
+            The start of the time range (in seconds) to retrieve OCRs for.
+          required: false
+          schema:
+            type: number
+        - name: end
+          in: query
+          description: >
+            The end of the time range (in seconds) to retrieve OCRs for.
+          required: false
+          schema:
+            type: number
+      responses:
+        '200':
+          description: OCRs have successfully been retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retrieveOcrResponse'
+        '400':
+          description: The request has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
   /search:
     post:
       summary: Make a search request.
@@ -723,6 +841,15 @@ paths:
 
 components:
   schemas:
+    genericSuccess:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable string describing the result.
+        type:
+          type: string
+          description: A human-readable string describing the result.
     genericError:
       type: object
       properties:
@@ -790,6 +917,99 @@ components:
         total_duration:
           type: number
           example: 8716.8969
+    retrieveTranscriptionResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique identifier of the video vector.
+          example: 61e17c1c777e6caec646fa08
+        data:
+          $ref: '#/components/schemas/transcriptionData'
+        index_id:
+          type: string
+          description: The unique identifier of the index with which the video is associated.
+          example: 61e165b061c43d6d9b73627b
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: video_index_meta_transcription
+    retrieveOcrResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The unique identifier of the video vector.
+          example: 61e17c1c777e6caec646fa08
+        data:
+          $ref: '#/components/schemas/ocrData'
+        index_id:
+          type: string
+          description: The unique identifier of the index with which the video is associated.
+          example: 61e165b061c43d6d9b73627b
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: video_index_meta_text_in_video
+
+
+    transcriptionData:
+      type: array
+      description: >
+        An array of objects that contains the transcription. For each time range for which the API service finds spoken words, it returns an object that contains the fields below.
+
+        If the API service doesn't find any spoken words, the `data` field is set to `None`.
+      items:
+        type: object
+        properties:
+          start:
+            description: The start of the time range, expressed in seconds.
+            type: number
+          end:
+            description: The end of the time range, expressed in seconds.
+            type: number
+          value:
+            description: >
+              Text representing the spoken words within this time range.
+            type: string
+      example:
+        - start: 4.34
+          end: 8.86
+          value: Hello
+        - start: 9.56
+          end: 10.95
+          value: Yeah
+    ocrData:
+      type: array
+      description: >
+        An array that contains the OCR elements. For each time range for which the API service finds OCR elements, it returns an object that contains the fields below.
+
+        If the API service doesn't find any OCR elements, the `data` field is set to `None`.
+      items:
+        type: object
+        properties:
+          start:
+            description: The start of the time range, expressed in seconds.
+            type: number
+          end:
+            description: The end of the time range, expressed in seconds.
+            type: number
+          value:
+            description: >
+              Recognized text within this time range.
+            type: string
+      example:
+        - start: 22
+          end: 42
+          value: LIVE
+        - start: 23
+          end: 24
+          value: VISITE SAO PAULO
+        - start: 23
+          end: 24
+          value: TED KRAVITZ   
+      
+
     videoIndexingTask:
       type: object
       properties:
@@ -823,6 +1043,42 @@ components:
             width:
               type: integer
               example: 854
+    videoVector:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 62bac61c154f59c87660cea3
+        created_at:
+          type: string
+          example: 2022-06-28T09:12:54
+        updated_at:
+          type: string
+          example: 2022-06-28T09:13:00Z
+        indexed_at:
+          type: string
+          example: 2022-06-28T09:26:42Z
+        metadata:
+          type: object
+          properties:
+            filename:
+              type: string
+              example: 01.mp4
+            duration:
+              type: number
+              example: 741.875
+            fps:
+              type: integer
+              example: 24
+            width:
+              type: integer
+              example: 640
+            height:
+              type: integer
+              example: 360
+            size:
+              type: number
+              example: 65749715
     pageInfo:
       type: object
       description: An object that provides information about pagination. 
@@ -842,7 +1098,7 @@ components:
         total_results:
           type: integer
           description: The total number of results.
-          example: 9
+          example: 1
     getVideoIndexingTasks:
       type: object
       properties:
@@ -871,6 +1127,21 @@ components:
           type: string
           description: Describes the type of operation.
           example: index_list
+    getVideoVectors:
+      type: object
+      properties:
+        data:
+          type: array
+          description: An array that contains up to page_limit video vectors.
+          items:
+            $ref: '#/components/schemas/videoVector'
+        page_info:
+          $ref: '#/components/schemas/pageInfo' 
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: video_index_list
+        
     getIndex:
       type: object
       properties:
@@ -884,6 +1155,17 @@ components:
           type: string
           description: Describes the type of operation.
           example: get_index
+    getVideoVector:
+      allOf:
+        - $ref: '#/components/schemas/videoVector'
+        - $ref: '#/components/schemas/getVideoVectorTaskType'
+    getVideoVectorTaskType:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Describes the type of operation.
+          example: video_index_info
     getVideoIndexingTask:
       allOf:
         - $ref: '#/components/schemas/videoIndexingTask'
@@ -947,6 +1229,15 @@ components:
           type: string
           description: Describes the type of operation.
           example: index_delete
+    deletedVideoVector:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Succesfully deleted video index '61dea7ed6c20ec075ebba8f5'
+        type:
+          type: string
+          example: delete_video_index
     createdVideoIndexingTask:
       type: object
       properties:
@@ -1031,6 +1322,7 @@ components:
       type: string
       required: false
     sort_option:
+      # https://swagger.io/docs/specification/data-models/enums/
       name: sort_option
       in: query
       description: >

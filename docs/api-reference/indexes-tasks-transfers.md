@@ -18,18 +18,6 @@ Use the `indexes/tasks/transfer` endpoint to perform cloud-to-cloud transfers th
 
 <DisplayMethod path="/indexes/tasks/transfers" method="post"/>
 
-### Response Schema
-
-The response is in JSON format.
-
-On success, it contains the following fields:
-- `type`: Describes the type of operation (`index_task_create`).
-- `message`: A human-readable string describing the result.
-
-On failure, it contains the following fields:
-- `error_code`: Represents the code associated with the error.
-- `message`: A human-readable string describing the error.
-
 ## Related Topics
 
 - [Cloud-to-Cloud Video Transfers](/guides/uploading-videos/cloud-to-cloud-transfers)
